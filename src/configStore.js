@@ -2,6 +2,17 @@ import { observable, useStrict, action, computed } from 'mobx';
 import { ALL,ACTIVE,DIDED } from './util/config';
 // useStrict(true);
 
+function fetchDate(value,num,cb){
+    fetch(`/api/data?value=${value}&num=${num}`)
+    .then(function(res) {
+        return res.json();
+    })
+    .then(data => {
+            cb(data)
+        }
+    )
+}
+
 class Store {
     @observable num = 1;
     @observable isShow = ALL
@@ -10,10 +21,22 @@ class Store {
         {title: 'mobx案列',isActive: true, id: 0}
     ];
     
+
+
     @action.bound
     addList(value){
         this.todos = [...this.todos, {title: value, isActive: true ,id: this.num++}]
     };
+
+    @action.bound
+    addListAsync(value){
+        fetchDate(value,this.num++,(data) => {
+            this.todos.push(data)  //{title: '我是异步追加的', isActive: true ,id: 100000}
+            console.log(this.todos)
+        })
+    }
+
+
 
     @action.bound
     itemFilterMobx(itemId){
@@ -24,6 +47,9 @@ class Store {
             return item
         })
     }
+
+
+
 
     @action.bound
     activedTodos() {

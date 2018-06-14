@@ -37,11 +37,22 @@ export default class Header extends Component {
         this.refs.headinput.value = '';
     }
 
+    btnClickAsync(){
+        let { addListAsync } = this.props.store
+        let text = this.refs.headinput.value;
+        if(text){
+            addListAsync(text)
+        }
+
+        this.refs.headinput.value = '';
+    }
+
     render() {
         let { addList } = this.props.store
         return <div>
             <input ref='headinput'  onKeyUp={ this.addtext_keyup.bind(this) }/>
             <button onClick = { this.btnClick.bind(this) } className = 'head-btn'>增加</button>
+            <button onClick = { this.btnClickAsync.bind(this) } className = 'head-btn'>异步追加</button>
         </div>
     }
 }

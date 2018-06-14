@@ -1,6 +1,7 @@
 let express = require('express')
 let path = require('path')
 let bodyParser = require('body-parser')
+let querystring = require('querystring');
 
 let api = require('./api')
 let { port } = require('./config')
@@ -25,6 +26,17 @@ Object.keys(api).map((item,index)=>{
 
 app.get('/',(req,res,next)=>{
 	res.json({check: '应用是否存活!'})
+})
+
+
+app.get('/api/data',(req,res,next)=>{
+	let {value,num} = querystring.parse(req.url.split('?')[1])
+	console.log(value)
+	res.json({
+		title: value, 
+		isActive: true,
+		id: num
+	})
 })
 
 

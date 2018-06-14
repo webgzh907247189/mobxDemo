@@ -6,7 +6,7 @@ const babelPolyfill = require('babel-polyfill')
 const openBrowserWebpackPlugin = require('open-browser-webpack-plugin')
 
 let childProcess = require('child_process')
-let devPort = '8001'
+let devPort = '8002'
 
 const commonDevModules = [
     'babel-polyfill',
