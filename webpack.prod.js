@@ -19,11 +19,11 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname,'./dist'),
-        filename: 'js/[name].bundle.[chunkHash].js', //https://github.com/zhenyong/Blog/issues/1
+        filename: 'js/[name].bundle.[chunkHash].js',
         publicPath: '/',
         chunkFilename: 'js/[name].[chunkHash].js'
     },
-    devtool: 'nosources-source-map', //('inline-source-map') 里面储存着位置信息。也就是说，转换后的代码的每一个位置，所对应的转换前的位置。有了它，出错的时候，除错工具将直接显示原始代码，而不是转换后的代码
+    devtool: 'nosources-source-map', 
     resolve:{
         extensions: ['.js','.web.js','.jsx','.json', '.scss'],  //默认解析扩展路径
         alias: {
@@ -41,12 +41,6 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel-loader'         //'babel-loader?cacheDirectory'   babel的缓存编译结果
             },
-
-            // {
-            //     test: /\.css$/,   //这有个缺点，您将无法利用浏览器的异步和并行加载CSS的能力。这样，您的网页必须等待，直到您的整个JavaScript 包下载完成，然后重绘网页。
-            //     use: 'css-loader' //并使用css-loader（它输出CSS作为JS模块） js是阻塞加载的，样式会出现很慢
-            // },
-
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({

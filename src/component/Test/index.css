@@ -1,0 +1,23 @@
+.footer .item {
+    padding-right: 20px;
+}
+
+.footer {
+    margin-top: 30px;
+}
+
+.content {
+    margin-top: 30px;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.head-btn{
+    margin-left: 10px;
+}

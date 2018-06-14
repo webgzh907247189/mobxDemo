@@ -8,7 +8,7 @@ function DeleteChunksPlugin({ chunks }) {
 }
 
 
-/* http://www.css88.com/doc/webpack2/api/plugins/
+/*
  * complier对象(分为两大类)   一个webpack运行时的参数,是用户写在webpack.config.js里的参数
  *
  * compiler.plugin()《就相当于给compiler设置了事件监听》 这个相当于是插件可以进行处理的webpack的运行中的一些任务点
@@ -41,12 +41,9 @@ DeleteChunksPlugin.prototype.apply = function(compiler) {
         callback();
     });
 
-
-    // 所有任务已经完成
     compiler.plugin('done', function() {
         self.deleteFiles.forEach(function(file) {
 
-            //https://www.cnblogs.com/mangoxin/p/5664615.html
             fs.unlink(file);
         });
     });

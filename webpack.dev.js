@@ -5,12 +5,8 @@ const webpackDevServer = require('webpack-dev-server')
 const babelPolyfill = require('babel-polyfill')
 const openBrowserWebpackPlugin = require('open-browser-webpack-plugin')
 
-// const ExtractTextPlugin = require('extract-text-webpack-plugin')
-// const extractCSS = new ExtractTextPlugin('style/styleCss.css');
-// const extractLESS = new ExtractTextPlugin('style/styleLess.css');
-
 let childProcess = require('child_process')
-let devPort = '8000'
+let devPort = '8001'
 
 const commonDevModules = [
     'babel-polyfill',
@@ -26,7 +22,6 @@ module.exports = {
     entry: {
         common: commonDevModules,
         index: './index.js',
-        appTest: './apptest.js',
         vendor: ['react','lodash']
     },
     output: {
@@ -54,21 +49,6 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel-loader'         //'babel-loader?cacheDirectory'   babel的缓存编译结果
             },
-
-            // {
-            //     test: /\.css$/,   //这有个缺点，您将无法利用浏览器的异步和并行加载CSS的能力。这样，您的网页必须等待，直到您的整个JavaScript 包下载完成，然后重绘网页。
-            //     use: 'css-loader' //并使用css-loader（它输出CSS作为JS模块） js是阻塞加载的，样式会出现很慢
-            // },
-
-            // {
-            //     test: /\.css$/,
-            //     use: extractCSS.extract(['css-loader?importLoaders=1','postcss-loader']) ///对于css中@import进来的css同样做前缀处理
-            // },
-            // {
-            //     test: /\.less$/,
-            //     use: extractLESS.extract(['css-loader?importLoaders=1','postcss-loader','less-loader']) //less-loader需要依赖less才能实现。如果用的npm3.0+，less是不会随着less-loader自动安装的，需要手动安装
-            // }
-            
             {
                 test: /\.css$/,
                 use: ['style-loader','css-loader?importLoaders=1','postcss-loader'] ///对于css中@import进来的css同样做前缀处理
