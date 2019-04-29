@@ -1,7 +1,7 @@
-import React,{ Component } from 'react'
-import styles from './index.less'
+import * as React from 'react'
+import * as styles from './index.less'
 
-class Layout extends Component{
+class Layout extends React.Component{
 	constructor(props){
 		super(props)
 	}

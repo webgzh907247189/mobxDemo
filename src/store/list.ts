@@ -1,7 +1,9 @@
-import { observable, useStrict, action, computed } from 'mobx';
+import { observable, action, computed } from 'mobx';
 // useStrict(true);
 
-function fetchDate(value,num,cb){
+import {listInterface} from './interface'
+
+function fetchDate(value: string,num: number,cb: Function){
     fetch(`/api/data?value=${value}&num=${num}`)
     .then(function(res) {
         return res.json();
@@ -13,31 +15,30 @@ function fetchDate(value,num,cb){
 }
 
 class ListStore {
-    @observable num = 1;
+    @observable num: number= 1;
 
-    @observable todos = [
+    @observable todos: Array<object> = [
         {title: 'mobx案列',isActive: true, id: 0}
     ];
 
     @action.bound
-    addList(value){
+    addList(value: string): void{
         this.todos = [...this.todos, {title: value, isActive: true ,id: this.num++}]
     };
-    @computed get addListLength(){
+    @computed get addListLength(): number{
         return this.todos.length
     }
 
     @action.bound
-    addListAsync(value){
+    addListAsync(value: string): void{
         fetchDate(value,this.num++,(data) => {
             this.todos.push(data)  //{title: '我是异步追加的', isActive: true ,id: 100000}
-            console.log(this.todos)
         })
     }
 
     @action.bound
-    itemFilterMobx(itemId){
-        this.todos = this.todos.map((item,index)=>{
+    itemFilterMobx(itemId: number): void{
+        this.todos = this.todos.map((item: listInterface,index: number)=>{
             if(item.id == itemId){
                 item.isActive = !item.isActive;
             }

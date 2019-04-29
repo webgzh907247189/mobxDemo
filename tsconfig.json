@@ -3,7 +3,8 @@
         "module": "commonjs",
         "target": "es5",
         "sourceMap": false,
-        "jsx": "react"
+        "jsx": "react",
+        "experimentalDecorators": true
     },
     "exclude": [
         "node_modules"

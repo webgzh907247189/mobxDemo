@@ -2,7 +2,7 @@ import {observable, autorun} from 'mobx';
 
 var todoStore = observable({
     todos: [],
-    get completedCount() {
+    get completedCount(): Array<object> {
         return this.todos.filter(todo => todo.completed).length;
     }
 });

@@ -1,55 +1,65 @@
-import React,{ Component } from 'react';
+import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import styles from './index.css'
+import * as styles from './index.css'
+import {ListStoreInterface} from './interfacce'
 
 @inject('listStore')
 @observer
-export default class Header extends Component {
-    constructor(props) {
-        super(props);
+export default class Header extends React.Component<ListStoreInterface> {
+    public refs: {
+        headinput: HTMLInputElement
     }
 
-    componentWillMount() {
+    constructor(props){
+        super(props)
     }
 
     componentWillReceiveProps(nextProps) {
     }
 
     addtext_keyup = (event) => {
-        let text = this.refs.headinput.value;
+        let text = this.RefsValue()
         let { addList } = this.props.listStore
         if(event.keyCode === 13){
             if(text){
                 addList(text)
             }
 
-            this.refs.headinput.value = '';
+            this.setRefVal()
         }
     }
 
     btnClick = () => {
         let { addList,addListLength } = this.props.listStore
-        let text = this.refs.headinput.value;
+        let text = this.RefsValue()
         if(text){
             addList(text)
         }
 
-        this.refs.headinput.value = '';
+        this.setRefVal()
+    }
+
+    RefsValue = (): string => {
+        return this.refs.headinput.value;
     }
 
     btnClickAsync = () => {
         let { addListAsync } = this.props.listStore
-        let text = this.refs.headinput.value;
+        let text = this.RefsValue()
         if(text){
             addListAsync(text)
         }
 
+        this.setRefVal()
+    }
+
+    setRefVal = (): void => {
         this.refs.headinput.value = '';
     }
 
     render() {
         return <div>
-            <input ref='headinput'  onKeyUp={ this.addtext_keyup }/>
+            <input ref='headinput' onKeyUp={ this.addtext_keyup }/>
             <button onClick = { this.btnClick } className = {styles['head-btn']}>增加</button>
             <button onClick = { this.btnClickAsync } className = {styles['head-btn']}>异步追加</button>
         </div>

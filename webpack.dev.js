@@ -40,7 +40,7 @@ module.exports = smp.wrap({
     },
     devtool: 'inline-source-map', //里面储存着位置信息。也就是说，转换后的代码的每一个位置，所对应的转换前的位置。有了它，出错的时候，除错工具将直接显示原始代码，而不是转换后的代码
     resolve:{
-        extensions: ['.js','.tsx','.web.js','.jsx','.json', '.scss'],
+        extensions: ['.js','.tsx','.web.js.tsx','.jsx','.json', '.scss'],
         alias: {
             style: __dirname + '/src/style/',
             component: __dirname + '/src/component/',
@@ -72,8 +72,18 @@ module.exports = smp.wrap({
                         }
                     },
                     // 'style-loader',  //  与MiniCssExtractPlugin.loader 冲突
+                    // {
+                    //     loader: 'css-loader?modules&localIdentName=[name]_[local]-[hash:base64:5]'
+                    // },
                     {
-                        loader: 'css-loader?modules&localIdentName=[name]_[local]-[hash:base64:5]'
+                        loader: 'typings-for-css-modules-loader',
+                        options: {
+                            modules: true,
+                            namedExport: true,
+                            camelCase: true,
+                            minimize: true,
+                            localIdentName: '[name]_[local]-[hash:base64:5]'
+                        }
                     },
                     {
                         loader: 'postcss-loader'
@@ -90,8 +100,18 @@ module.exports = smp.wrap({
                             publicPath: '../'
                         }
                     },
+                    // {
+                    //     loader: 'css-loader?modules&localIdentName=[name]_[local]-[hash:base64:5]'
+                    // },
                     {
-                        loader: 'css-loader?modules&localIdentName=[name]_[local]-[hash:base64:5]'
+                        loader: 'typings-for-css-modules-loader',
+                        options: {
+                            modules: true,
+                            namedExport: true,
+                            camelCase: true,
+                            minimize: true,
+                            localIdentName: '[name]_[local]-[hash:base64:5]'
+                        }
                     },
                     {
                         loader: 'postcss-loader'
