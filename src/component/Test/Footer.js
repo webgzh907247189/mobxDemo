@@ -2,7 +2,8 @@ import React,{ Component } from 'react'
 import './index.css'
 import { inject, observer } from 'mobx-react';
 
-@inject('store')
+@inject('listStore')
+@inject('filterListStore')
 @observer
 export default class Footer extends Component {
     constructor(props) {
@@ -10,17 +11,18 @@ export default class Footer extends Component {
     }
 
     allTodos(){
-        let {allTodos} = this.props.store
+        console.log(this.props,'this.props')
+        let {allTodos} = this.props.filterListStore
         allTodos()
     }
 
     activedTodos(){
-        let {activedTodos} = this.props.store
+        let {activedTodos} = this.props.filterListStore
         activedTodos()
     }
 
     didedTodos(){
-        let {didedTodos} = this.props.store
+        let {didedTodos} = this.props.filterListStore
         didedTodos()
     }
 

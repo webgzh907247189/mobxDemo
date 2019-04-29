@@ -15,5 +15,4 @@ const Routers = () =>
 		</Layout>	
 	</Router>
 
-
 export default Routers

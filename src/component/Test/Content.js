@@ -1,7 +1,8 @@
 import React,{ Component } from 'react'
 import { inject, observer } from 'mobx-react';
 
-@inject('store')
+@inject('listStore')
+@inject('filterListStore')
 @observer
 export default class Content extends Component {
     constructor(props) {
@@ -15,12 +16,13 @@ export default class Content extends Component {
     }
 
     itemFilter(itemId){
-        let {itemFilterMobx} = this.props.store
+        let {itemFilterMobx} = this.props.listStore
         itemFilterMobx(itemId)
     }
 
     render() {
-        let {toDoList = []} = this.props.store
+        let {toDoList = []} = this.props.filterListStore
+        console.log(toDoList,'toDoList')
         return <div className = 'content'>
         {
             toDoList.map((item,index) => {

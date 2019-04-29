@@ -2,7 +2,7 @@ import React,{ Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import './index.css'
 
-@inject('store')
+@inject('listStore')
 @observer
 export default class Header extends Component {
     constructor(props) {
@@ -17,7 +17,7 @@ export default class Header extends Component {
 
     addtext_keyup(event){
         let text = this.refs.headinput.value;
-        let { addList } = this.props.store
+        let { addList } = this.props.listStore
         if(event.keyCode === 13){
             if(text){
                 addList(text)
@@ -28,7 +28,7 @@ export default class Header extends Component {
     }
 
     btnClick(){
-        let { addList } = this.props.store
+        let { addList,addListLength } = this.props.listStore
         let text = this.refs.headinput.value;
         if(text){
             addList(text)
@@ -38,7 +38,7 @@ export default class Header extends Component {
     }
 
     btnClickAsync(){
-        let { addListAsync } = this.props.store
+        let { addListAsync } = this.props.listStore
         let text = this.refs.headinput.value;
         if(text){
             addListAsync(text)
@@ -48,7 +48,6 @@ export default class Header extends Component {
     }
 
     render() {
-        let { addList } = this.props.store
         return <div>
             <input ref='headinput'  onKeyUp={ this.addtext_keyup.bind(this) }/>
             <button onClick = { this.btnClick.bind(this) } className = 'head-btn'>增加</button>

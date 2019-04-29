@@ -5,7 +5,7 @@ import attachFastClick from 'fastclick'
 import App from './src/app.js'
 
 import { Provider } from 'mobx-react'
-import store from './src/configStore'
+import store from './src/store/store'
 
 attachFastClick.attach(document.body)
 
@@ -26,8 +26,8 @@ attachFastClick.attach(document.body)
  */ 
 const render = (App) => {
 	ReactDOM.render(
-		<Provider store={store}>		
-			<AppContainer store={store}>
+		<Provider {...store}>		
+			<AppContainer {...store}>
 	        	<App/>
 	    	</AppContainer>
 		</Provider>,
