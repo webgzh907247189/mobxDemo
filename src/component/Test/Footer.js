@@ -1,5 +1,5 @@
 import React,{ Component } from 'react'
-import './index.css'
+import styles from './index.css'
 import { inject, observer } from 'mobx-react';
 
 @inject('listStore')
@@ -27,10 +27,10 @@ export default class Footer extends Component {
     }
 
     render() {
-        return <div className = 'footer'>
-            <span className = 'item' onClick = { this.allTodos.bind(this) }>全部item</span>
-            <span className = 'item' onClick = { this.activedTodos.bind(this) }>活跃item</span>
-            <span className = 'item' onClick = { this.didedTodos.bind(this) }>死亡item</span>
+        return <div className = {styles['footer']}>
+            <span className = {styles['item']} onClick = { this.allTodos.bind(this) }>全部item</span>
+            <span className = {styles['item']} onClick = { this.activedTodos.bind(this) }>活跃item</span>
+            <span className = {styles['item']} onClick = { this.didedTodos.bind(this) }>死亡item</span>
         </div>
     }
 }

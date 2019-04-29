@@ -25,7 +25,7 @@ module.exports = {
     },
     devtool: 'nosources-source-map', 
     resolve:{
-        extensions: ['.js','.web.js','.jsx','.json', '.scss'],  //默认解析扩展路径
+        extensions: ['.js','.tsx','.web.js','.jsx','.json', '.scss'],  //默认解析扩展路径
         alias: {
             style: __dirname + '/src/style/',
             component: __dirname + '/src/component/'
@@ -36,6 +36,10 @@ module.exports = {
     },
     module: {
         rules: [
+            {   
+                test: /\.tsx?$/,
+                loader: 'ts-loader'
+            },
             {
                 test: /\.js?$/,
                 exclude: /node_modules/,

@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
+// import { AppContainer } from 'react-hot-loader'
+// import { hot } from 'react-hot-loader/root'
 import attachFastClick from 'fastclick'
 import App from './src/app.js'
 
@@ -27,14 +28,13 @@ attachFastClick.attach(document.body)
 const render = (App) => {
 	ReactDOM.render(
 		<Provider {...store}>		
-			<AppContainer {...store}>
+			{/* <AppContainer {...store}> */}
 	        	<App/>
-	    	</AppContainer>
+	    	{/* </AppContainer> */}
 		</Provider>,
     document.getElementById('root')
     );
 }
 render(App)
-
 
 if(module.hot) module.hot.accept('./src/app.js',()=>{ render(App) })

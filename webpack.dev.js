@@ -1,15 +1,23 @@
 const webpack = require('webpack');
 const path = require('path')
 const HtmlWebPlugin = require('html-webpack-plugin')
-const webpackDevServer = require('webpack-dev-server')
-const babelPolyfill = require('babel-polyfill')
+const babelPolyfill = require('@babel/polyfill')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const DashboardPlugin = require("webpack-dashboard/plugin");
+const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const openBrowserWebpackPlugin = require('open-browser-webpack-plugin')
+
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const smp = new SpeedMeasurePlugin();
+
+const setTitle = require('node-bash-title');
+setTitle('webpack  Server');
 
 let childProcess = require('child_process')
 let devPort = '8002'
 
 const commonDevModules = [
-    'babel-polyfill',
+    '@babel/polyfill',
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://localhost:${devPort}`,
     'webpack/hot/only-dev-server'
@@ -18,7 +26,7 @@ const commonDevModules = [
 let { port:mockPort } = require('./mock/config')
 childProcess.exec('nodemon ./mock/nodeExpressMock.js')
 
-module.exports = {
+module.exports = smp.wrap({
     entry: {
         common: commonDevModules,
         index: './index.js',
@@ -32,11 +40,12 @@ module.exports = {
     },
     devtool: 'inline-source-map', //里面储存着位置信息。也就是说，转换后的代码的每一个位置，所对应的转换前的位置。有了它，出错的时候，除错工具将直接显示原始代码，而不是转换后的代码
     resolve:{
-        extensions: ['.js','.web.js','.jsx','.json', '.scss'],
+        extensions: ['.js','.tsx','.web.js','.jsx','.json', '.scss'],
         alias: {
             style: __dirname + '/src/style/',
             component: __dirname + '/src/component/',
-            util: __dirname + '/src/util/'
+            util: __dirname + '/src/util/',
+            'react-dom': '@hot-loader/react-dom'
         },
         mainFiles: ['index','index.web'], //解析目录时要使用的文件名
         modules: [path.resolve(__dirname, "src"), "node_modules"], //如果你想要添加一个目录到模块搜索目录，此目录优先于 node_modules/ 搜索
@@ -44,19 +53,55 @@ module.exports = {
     },
     module: {
         rules: [
+            {   
+                test: /\.tsx?$/,
+                loader: 'ts-loader'
+            },
             {
                 test: /\.js?$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader'         //'babel-loader?cacheDirectory'   babel的缓存编译结果
+                use: ['cache-loader','babel-loader'],         //'babel-loader?cacheDirectory'   babel的缓存编译结果
             },
             {
                 test: /\.css$/,
-                use: ['style-loader','css-loader?importLoaders=1','postcss-loader'] ///对于css中@import进来的css同样做前缀处理
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../'
+                        }
+                    },
+                    // 'style-loader',  //  与MiniCssExtractPlugin.loader 冲突
+                    {
+                        loader: 'css-loader?modules&localIdentName=[name]_[local]-[hash:base64:5]'
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    }
+                ],
+                include: [path.resolve('src')],
+                exclude: /node_modules/
             },
             {
-                test: /\.less$/,
-                use: ['style-loader','css-loader?importLoaders=1','postcss-loader','less-loader'] //less-loader需要依赖less才能实现。如果用的npm3.0+，less是不会随着less-loader自动安装的，需要手动安装
-            },
+                test: /\.less$/,                 //less-loader需要依赖less才能实现。如果用的npm3.0+，less是不会随着less-loader自动安装的，需要手动安装
+                use: [{
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../'
+                        }
+                    },
+                    {
+                        loader: 'css-loader?modules&localIdentName=[name]_[local]-[hash:base64:5]'
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    },
+                    {
+                        loader: 'less-loader'
+                    }
+                ],
+                exclude: /node_modules/
+                },
             {
                 test: /\.(png|jpe?g|gif)(\?.*)?$/,
                 use: {
@@ -71,6 +116,22 @@ module.exports = {
     },
     externals: {
         jquery: "window.jQuery" //如果要全局引用jQuery，不管你的jQuery有没有支持模块化，用externals就对了。
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    chunks: 'initial',
+                    name: 'common',
+                    minChunks: 1,
+                    maxInitialRequests: 5,
+                    minSize: 0
+                }
+            }
+        },
+        runtimeChunk: {
+            name: 'runtime'
+        }
     },
     plugins: [
         new webpack.BannerPlugin('react demo'),
@@ -88,9 +149,9 @@ module.exports = {
             let percent = Math.floor(percentage * 100) + '%'
             process.stdout.write(percent+'\r')  // 实时更新编译进度?\r) (\r表示return，光标回到当前行首。所以能实现单行刷新的进度条效果。)
         }),
-        new webpack.optimize.CommonsChunkPlugin({
-            names: ['vendor','runtime'],
-            minChunks: Infinity  //防止其他代码被打包进来
+        new MiniCssExtractPlugin({
+            filename: "style/[name].[hash:5].css",
+            chunkFilename: "style/[id].[hash:5].css"
         }),
         new HtmlWebPlugin({
             filename: 'index.html',
@@ -101,6 +162,11 @@ module.exports = {
                 collapseInlineTagWhitespace: false,
                 collapseWhitespace: true  //压缩html模板(生产)
             }
+        }),
+        new DashboardPlugin(),
+        new WebpackBuildNotifierPlugin({
+            title: "Webpack Build",
+            suppressSuccess: true
         })
     ],
     devServer: {
@@ -111,6 +177,7 @@ module.exports = {
         // compress: true,
 
         inline: true,
+        overlay: true,
         disableHostCheck: true,
         proxy: {
             /** 联调环境下 **/
@@ -122,12 +189,18 @@ module.exports = {
             '/api/*': {
                 target: `http://localhost:${mockPort}`
             }
-        } 
+        }, 
 
         // *表示任意文件名，**表示任意一层子目录
         // proxy: [{
         //     context: ['**', '!**/*.html', '!**/*.js', '!**/*.css'],
         //     target: 'http://localhost:7001'
         // }]
+
+        before(app){
+            app.get('/testApi',(req,res)=>{
+                res.json({name: 'test'})
+            })
+        }
     }
-}
+})
