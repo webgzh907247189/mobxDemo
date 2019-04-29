@@ -101,7 +101,7 @@ module.exports = smp.wrap({
                     }
                 ],
                 exclude: /node_modules/
-                },
+            },
             {
                 test: /\.(png|jpe?g|gif)(\?.*)?$/,
                 use: {

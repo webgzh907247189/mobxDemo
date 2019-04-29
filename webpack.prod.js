@@ -1,20 +1,23 @@
 const webpack = require('webpack');
 const path = require('path')
+const os = require('os')
 const HtmlWebPlugin = require('html-webpack-plugin')
-const webpackDevServer = require('webpack-dev-server')
-const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
-const DeleteChunksPlugin = require('./webpack.delete.chunks.plugin.js')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const extractCSS = new ExtractTextPlugin('style/styleCss.css');
-const extractLESS = new ExtractTextPlugin('style/styleLess.css');
+
+const argv = require('yargs-parser')(process.argv.slice(2))
+const _mode = argv.mode || 'development'
 
 module.exports = {
     entry: {
-        common: 'babel-polyfill',
+        common: '@babel/polyfill',
         index: './index.js',
-        appTest: './apptest.js',
         vendor: ['react','lodash']
     },
     output: {
@@ -46,19 +49,41 @@ module.exports = {
                 loader: 'babel-loader'         //'babel-loader?cacheDirectory'   babel的缓存编译结果
             },
             {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader", //编译后用什么loader来提取css文件
-                    use: ['css-loader?importLoaders=1&minimize','postcss-loader']
-               })
+				test: /\.css$/,
+				use: [{
+						loader: MiniCssExtractPlugin.loader,
+						options: {
+							publicPath: '../'
+						}
+					},
+					{
+						loader: 'css-loader?modules&localIdentName=[name]_[local]-[hash:base64:5]'
+					},
+					{
+						loader: 'postcss-loader'
+					}
+				],
+				exclude: /node_modules/
             },
-
             {
-                test: /\.less$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader", //编译后用什么loader来提取css文件
-                    use: ['css-loader?importLoaders=1&minimize','postcss-loader','less-loader']  //loader会依次处理，上面的loader作废
-               })
+                test: /\.less$/,                 //less-loader需要依赖less才能实现。如果用的npm3.0+，less是不会随着less-loader自动安装的，需要手动安装
+                use: [{
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../'
+                        }
+                    },
+                    {
+                        loader: 'css-loader?modules&localIdentName=[name]_[local]-[hash:base64:5]'
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    },
+                    {
+                        loader: 'less-loader'
+                    }
+                ],
+                exclude: /node_modules/
             },
             {
                 test: /\.(png|jpe?g|gif)(\?.*)?$/,
@@ -82,70 +107,93 @@ module.exports = {
     externals: {
         jquery: "window.jQuery" //如果要全局引用jQuery，不管你的jQuery有没有支持模块化，用externals就对了。
     },
+	optimization: {
+		splitChunks: {
+			cacheGroups: {
+				vendors: {
+					test: /[\\/]node_modules[\\/]/,
+					name: 'vendors',
+					minSize: 30000,
+					minChunks: 1,
+					chunks: 'initial',
+					priority: 1 // 该配置项是设置处理的优先级，数值越大越优先处理
+				},
+				commons: {
+					test: /[\\/]src[\\/]common[\\/]/,
+					name: 'commons',
+					minSize: 30000,
+					minChunks: 3,
+					chunks: 'initial',
+					priority: -1,
+					reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
+				}
+			}
+		},
+		runtimeChunk: {
+			name: 'runtime'
+		},
+		minimizer: [
+			new UglifyJsPlugin({
+				exclude: /\.min\.js$/, // 过滤掉以".min.js"结尾的文件，我们认为这个后缀本身就是已经压缩好的代码，没必要进行二次压缩
+				cache: true,
+				parallel: os.cpus().length - 1, //true, // 开启并行压缩，充分利用cpu (多核压缩)
+				sourceMap: false,
+				extractComments: false, // 移除注释
+				uglifyOptions: {
+					compress: {
+						unused: true,
+						warnings: false,
+						drop_debugger: true,
+						drop_console: true // 删除所有的 `console` 语句
+					},
+					output: {
+						comments: false
+					}
+				}
+			}),
+			// 用于优化css文件 (CSS nano 解决单页的css)
+			new OptimizeCssAssetsPlugin({
+				assetNameRegExp: /\.css$/g,
+				cssProcessorOptions: {
+					safe: true,
+					autoprefixer: {
+						disable: true
+					}, // 不移除autoprefixer加好的前缀
+					mergeLonghand: false,
+					discardComments: {
+						removeAll: true // 移除注释
+					}
+				},
+				canPrint: true
+			})
+		]
+	},
     plugins: [
         // new BundleAnalyzerPlugin(),  //webpack打包分析
 
         new webpack.BannerPlugin('this is react demo'),
-        new webpack.optimize.CommonsChunkPlugin({
-            // name: 'common', //多入口，模块重复引用，分文件输出（将多次引用的模块打包到公共模块） 
-            // minChunks: 2, //引用次数
-            // chunks: ['index','appTest'] //只有在index.js和appTest.js中都引用的模块才会被打包的到公共模块（这里即common.js）
-
-            // names: ['vendor','runtime']
-
-            names: ['commonss','vendor','runtime'],
-            minChunks: 2
-            // minChunks: Infinity  //防止其他代码被打包进来(只是框架代码,业务的公共代码不会进来)
+        new MiniCssExtractPlugin({
+			filename: "style/[name].[hash:5].css",
+			chunkFilename: "style/[id].[hash:5].css"
         }),
-
-
-        // new ExtractTextPlugin('styles.css'),
-        // extractCSS,
-        // extractLESS,  
-        new ExtractTextPlugin('style/[name]-[contenthash].css',{allChunks: true}),
-
+        new InlineManifestWebpackPlugin('runtime'),
+		new ProgressBarPlugin(),
+		new ManifestPlugin(),
         new webpack.DefinePlugin({   //可在production环境下帮助删除重复或相似文件，可以有效减少文件大小（用于打包文件优化，建议使用在生产环境）
             "process.env":{
                 NODE_ENV:JSON.stringify('production')
             }
         }),
-        new webpack.ProgressPlugin(function(percentage, msg) {
-            let percent = Math.floor(percentage * 100) + '%'
-            process.stdout.write(percent+'\r')  // 实时更新编译进度?\r (\r表示return，光标回到当前行首。所以能实现单行刷新的进度条效果。)
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                properties: false,  /* 兼容IE8 */
-                warnings: false,   // 在UglifyJs删除没有用到的代码时不输出警告
-                reduce_vars: true, // 提取出出现多次但是没有定义成变量去引用的静态值
-                drop_console: true // 删除所有的 `console` 语句  还可以兼容ie浏览器
-            },
-            mangle: {
-                screw_ie8: false,    /* 兼容IE8(把支持IE8的代码clear掉) */
-                keep_fnames: true
-            },
-            output: {
-                quote_keys: true,   /* 兼容IE8 */
-                comments: false,   // 删除所有的注释
-                beautify: false    // 最紧凑的输出(是否 最紧凑的输出  ->  美化输出)
-            },
-            sourceMap: false  //生成SourceMap文件，会导致编译过程变慢，默认true (将错误信息的位置映射到模块)
-        }),
         new HtmlWebPlugin({
             filename: 'detail.html',
             template: './index.html',
-            chunks: ['common','index', 'appTest','vendor','runtime','commonss'],   //允许插入到模板中的一些chunk，不配置此项默认会将entry中所有的thunk注入到模板中。
+            // chunks: ['common','index', 'appTest','vendor','runtime','commonss'],   //允许插入到模板中的一些chunk，不配置此项默认会将entry中所有的thunk注入到模板中。
             inject: 'body',  // body等同true的效果   (所有JavaScript资源插入到body元素的底部)
             minify: {
                 collapseInlineTagWhitespace: false,
                 removeComments:true, //移除HTML中的注释
                 collapseWhitespace: true  //压缩html模板(生产)
-            },
-            inlineSource: 'runtime.bundle.[a-z0-9]{20}.js$'
-        }),
-        new HtmlWebpackInlineSourcePlugin(),   // https://github.com/DustinJackson/html-webpack-inline-source-plugin
-        new DeleteChunksPlugin({
-            chunks: ['runtime']
+            }
         })
     ]
 }
