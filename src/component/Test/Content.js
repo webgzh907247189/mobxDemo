@@ -1,10 +1,6 @@
 import * as React from 'react'
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import * as styles from './index.css'
-import {TodoList} from './interface'
-
-@inject('listStore')
-@inject('filterListStore')
 @observer
 export default class Content extends React.Component {
 

@@ -26,7 +26,7 @@ attachFastClick.attach(document.body)
  * @zhonghao.ge                          Copyright (c)           ANHUI
  * @DateTime    2017-12-17T16:02:27+0800
  */ 
-const render = hot((App) => {
+const render = (App) => {
 	ReactDOM.render(
 		<Provider {...store}>		
 			{/* <AppContainer {...store}> */}
@@ -35,5 +35,12 @@ const render = hot((App) => {
 		</Provider>,
     document.getElementById('root')
     );
-})
-render(App)
+}
+
+
+// if(module.hot){
+// 	module.hot.accept('./src/app.js',()=>{
+// 		render(App)
+// 	})
+// }
+render(hot(App))

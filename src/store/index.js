@@ -1,6 +1,6 @@
 import {listStore} from './list'
 import {filterListStore} from './filterList'
-import './mobxTest'
+// import './mobxTest'
 
 export function storeFn(){
     return {
