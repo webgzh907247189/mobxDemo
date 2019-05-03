@@ -1,7 +1,7 @@
-import React from 'react'
+import * as React from 'react'
 import { BrowserRouter as Router,Route,Switch,Redirect } from 'react-router-dom'
-import Layout from 'component/Layout'
-import Test from 'component/Test'
+import Layout from './component/Layout/index.web'
+import Test from './component/Test/index.web'
 
  
 const Routers = () => 

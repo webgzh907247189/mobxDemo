@@ -1,5 +1,5 @@
-import storeObj from '../../store/store'
-let { listStore,filterListStore} = storeObj
+import {listStore,filterListStore} from '../../store/store'
+// let { listStore,filterListStore} = storeObj
 
 interface FooterInterface{
     filterListStore

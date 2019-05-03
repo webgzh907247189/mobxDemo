@@ -1,12 +1,13 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 // import { AppContainer } from 'react-hot-loader'
-// import { hot } from 'react-hot-loader/root'
+import { hot } from 'react-hot-loader/root'
 import attachFastClick from 'fastclick'
-import App from './src/app.js'
+import App from './src/app'
 
 import { Provider } from 'mobx-react'
-import store from './src/store/store'
+import {storeFn} from './src/store/index'
+let store = storeFn()
 
 attachFastClick.attach(document.body)
 
@@ -25,7 +26,7 @@ attachFastClick.attach(document.body)
  * @zhonghao.ge                          Copyright (c)           ANHUI
  * @DateTime    2017-12-17T16:02:27+0800
  */ 
-const render = (App) => {
+const render = hot((App) => {
 	ReactDOM.render(
 		<Provider {...store}>		
 			{/* <AppContainer {...store}> */}
@@ -34,7 +35,5 @@ const render = (App) => {
 		</Provider>,
     document.getElementById('root')
     );
-}
+})
 render(App)
-
-if(module.hot) module.hot.accept('./src/app.js',()=>{ render(App) })

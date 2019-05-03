@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import * as styles from './index.css'
-import {ListStoreInterface} from './interfacce'
+import {ListStoreInterface} from './interface'
 
-@inject('listStore')
+// @inject('listStore')
 @observer
 export default class Header extends React.Component<ListStoreInterface> {
     public refs: {
@@ -30,7 +30,7 @@ export default class Header extends React.Component<ListStoreInterface> {
     }
 
     btnClick = () => {
-        let { addList,addListLength } = this.props.listStore
+        let { addList } = this.props.listStore
         let text = this.RefsValue()
         if(text){
             addList(text)

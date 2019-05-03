@@ -2,8 +2,7 @@ import * as React from 'react';
 import Header from './Header';
 import Content from './Content';
 import Footer from './Footer';
-// import store from '../../store/store'
-// let {listStore,filterListStore} = store
+import {listStore,filterListStore} from '../../store/store'
 
 export default class Test extends React.Component<any, any> {
     constructor(props) {
@@ -17,15 +16,10 @@ export default class Test extends React.Component<any, any> {
     }
 
     render() {
-        // return (<div>
-        //     <Header listStore={listStore}/>
-        //     <Content listStore={listStore} filterListStore={filterListStore}/>
-        //     <Footer filterListStore={filterListStore}/>
-        // </div>)
         return (<div>
-            <Header/>
-            <Content/>
-            <Footer/>
+            <Header listStore={listStore}/>
+            <Content listStore={listStore} filterListStore={filterListStore}/>
+            <Footer filterListStore={filterListStore}/>
         </div>)
     }
 }
