@@ -29,7 +29,7 @@ childProcess.exec('nodemon ./mock/nodeExpressMock.js')
 module.exports = smp.wrap({
     entry: {
         common: commonDevModules,
-        index: './index.js',
+        index: './index.tsx',
         vendor: ['react','lodash']
     },
     output: {

@@ -1,16 +1,46 @@
-import {listStore,filterListStore} from '../../store/store'
+// import {listStore,filterListStore} from '../../store/store'
 // let { listStore,filterListStore} = storeObj
 
 interface FooterInterface{
-    filterListStore
+    filterListStore: {
+        isShow: string,
+        toDoList: Array<object>,
+        activedTodos: () => any,
+        didedTodos: () => any,
+        allTodos: () => any
+    }
 }
 
 interface ListStoreInterface{
-    listStore
+    listStore: {
+        num: number,
+        todos: Array<object>,
+        addList: (value: string) => any,
+        addListAsync: (value: string) => any,
+        itemFilterMobx: (itemId : number) => any
+    }
 }
 
 interface TodoList{
-    listStore,
-    filterListStore
+    filterListStore: {
+        isShow: string,
+        toDoList: Array<object>,
+        activedTodos: () => any,
+        didedTodos: () => any,
+        allTodos: () => any
+    },
+    listStore: {
+        num: number,
+        todos: Array<object>,
+        addList: (value: string) => any,
+        addListAsync: (value: string) => any,
+        itemFilterMobx: (itemId: number) => any
+    }
 }
-export {FooterInterface,ListStoreInterface,TodoList}
+
+interface TodoListInterface{
+    isActive: boolean,
+    title: string,
+    id: number
+}
+export {FooterInterface,ListStoreInterface,TodoList,TodoListInterface}

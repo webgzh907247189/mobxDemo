@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react';
 import * as styles from './index.css'
-import {TodoList} from './interface'
+import {TodoList,TodoListInterface} from './interface'
 
 @inject('listStore')
 @inject('filterListStore')
@@ -22,7 +22,7 @@ export default class Content extends React.Component<TodoList> {
         return (
             <div className = {styles['content']}>
             {
-                toDoList.map((item,index) => {
+                toDoList.map((item: TodoListInterface,index) => {
                     return <div  className = {item.isActive ? styles['green'] : styles['red']}  key={item.id}  onClick = { this.itemFilter.bind(this,item.id) } >{item.title} <span>{item.isActive ? '活跃' : '死亡'}</span></div>
                 })
             }
