@@ -40,7 +40,7 @@ module.exports = smp.wrap({
     },
     devtool: 'inline-source-map', //里面储存着位置信息。也就是说，转换后的代码的每一个位置，所对应的转换前的位置。有了它，出错的时候，除错工具将直接显示原始代码，而不是转换后的代码
     resolve:{
-        extensions: ['.js','.tsx','ts','.web.tsx','.jsx','.json', '.scss'],
+        extensions: ['.js','.tsx','.ts','.web.tsx','.jsx','.json', '.scss'],
         alias: {
             style: __dirname + '/src/style/',
             component: __dirname + '/src/component/',
