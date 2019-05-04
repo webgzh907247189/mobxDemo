@@ -3,7 +3,6 @@ import * as styles from './index.css'
 import { observer } from 'mobx-react';
 import {FooterInterface} from './interface'
 
-// @inject('filterListStore')
 @observer
 export default class Footer extends React.Component<FooterInterface> {
     allTodos = () => {

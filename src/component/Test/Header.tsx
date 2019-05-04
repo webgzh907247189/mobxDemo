@@ -3,7 +3,6 @@ import { observer } from 'mobx-react';
 import * as styles from './index.css'
 import {ListStoreInterface} from './interface'
 
-// @inject('listStore')
 @observer
 export default class Header extends React.Component<ListStoreInterface> {
     public refs: {
