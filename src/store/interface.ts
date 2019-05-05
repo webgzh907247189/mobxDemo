@@ -1,6 +1,6 @@
-interface listInterface{
-    id: number,
-    isActive: boolean
+interface ListInterface {
+  id: number;
+  isActive: boolean;
 }
 
-export {listInterface}
+export { ListInterface }

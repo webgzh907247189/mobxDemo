@@ -1,2 +1,2 @@
-export * from './list';
-export * from './filterList';
+export * from './list'
+export * from './filterList'

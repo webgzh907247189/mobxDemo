@@ -1,5 +1,5 @@
-let ALL: string = 'ALL';
-let ACTIVE: string = 'active';
-let DIDED: string = 'dided';
+let ALL = 'ALL'
+let ACTIVE = 'active'
+let DIDED = 'dided'
 
-export { ALL,ACTIVE,DIDED };
+export { ALL, ACTIVE, DIDED }
