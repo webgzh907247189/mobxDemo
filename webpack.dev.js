@@ -53,9 +53,19 @@ module.exports = smp.wrap({
     },
     module: {
         rules: [
+            {
+                test: /\.(js|tsx|tsx)$/,
+                loader: 'eslint-loader',
+                exclude: /node_modules/,
+                // enforce: 'pre',
+                options: {
+                    fix: true
+                }
+            },
             {   
                 test: /\.tsx?$/,
-                loader: 'ts-loader'
+                exclude: /node_modules/,
+                use: ['cache-loader','babel-loader','ts-loader']
             },
             {
                 test: /\.js?$/,
