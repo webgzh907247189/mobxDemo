@@ -1,5 +1,3 @@
-// "pre-push": "npm run format-check",
- 
 // "lint-staged": {
 //     "src/**/*.{js,jsx}": [
 //         "prettier --tab-width 4 --write",
