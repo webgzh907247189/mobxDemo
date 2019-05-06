@@ -1,1 +1,1 @@
-export const layout: string;
+export const layout: string

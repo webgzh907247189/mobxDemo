@@ -1,5 +1,4 @@
 import * as React from 'react'
-// import * as PropTypes from 'prop-types'
 import * as styles from './index.less'
 
 class Layout extends React.Component {
@@ -9,7 +8,7 @@ class Layout extends React.Component {
   //     children: PropTypes.ReactElementLike
   //   }
 
-  render() {
+  public render() {
     return (
       <div className={styles['layout']}>
         <div>mobx demo</div>

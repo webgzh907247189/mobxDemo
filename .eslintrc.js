@@ -1,6 +1,3 @@
-// "precommit": "lint-staged",
-// "pre-push": "npm run format-check",
-// "format-check": "prettier --list-different \"./**/*.{ts,js,json,md}\""
 // "lint-staged": {
 //     "src/**/*.{js,jsx}": [
 //         "prettier --tab-width 4 --write",
@@ -8,9 +5,11 @@
 //         "git add"
 //     ]
 //   }
-//eslint-config-react-app
+
+// 如果想要跳过 Lint 程序，可以使用 git commit --no-verify 进行提交。
+
 module.exports = {
-    parser:  '@typescript-eslint/parser',
+  parser:  '@typescript-eslint/parser',
   // parser: 'typescript-eslint-parser',
   // parser:  'babel-eslint',
   'env': {

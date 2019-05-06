@@ -6,11 +6,22 @@
   "scripts": {
     "prod": "cross-env NODE_ENV=production webpack --mode production --display-modules --display-chunks --color --config webpack.prod.js",
     "postprod": "node ./bin/index.js",
+    "predev": "npm run lint",
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --mode development --color --config webpack.dev.js",
     "test": "react-scripts test --env=jsdom",
     "lint": "eslint src --ext .js,.ts,.tsx --fix",
-    "lint:create": "eslint --init"
+    "lint:create": "eslint --init",
+    "format-check": "prettier --write \"./src/**/*.{tsx,ts,js,json,md}\"",
+    "precommit": "lint-staged",
+    "pre-push": "npm run format-check"
+  },
+  "lint-staged": {
+    "src/**/*.{.js,ts,tsx}": [
+      "npm run lint",
+      "npm run format-check",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -77,11 +88,13 @@
     "file-loader": "^1.1.6",
     "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.10.0",
+    "husky": "^2.2.0",
     "image-webpack-loader": "^3.4.2",
     "inline-manifest-webpack-plugin": "^4.0.2",
     "isomorphic-fetch": "^2.2.1",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
+    "lint-staged": "^8.1.6",
     "mini-css-extract-plugin": "^0.6.0",
     "node-bash-title": "0.0.2",
     "nodemon": "^1.12.4",
