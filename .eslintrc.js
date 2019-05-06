@@ -1,3 +1,4 @@
+//eslint-config-react-app
 module.exports = {
   parser: 'typescript-eslint-parser',
   // parser:  'babel-eslint',
@@ -7,7 +8,8 @@ module.exports = {
   },
   'extends': [
     'standard', //使用standard做代码规范
-    "prettier"
+    'react-app',
+    "prettier",
   ],
   'globals': {
     'Atomics': 'readonly',
@@ -39,6 +41,7 @@ module.exports = {
     //   "space"
     // ],
     'no-tabs': 0,
+    "no-undef": 0,
     'no-mixed-spaces-and-tabs': 0,
     'indent': ["off", "tab"],
     'no-trailing-spaces': 0,
@@ -52,6 +55,6 @@ module.exports = {
       }
     ],
     // 类和接口的命名必须遵守帕斯卡命名法，比如 PersianCat
-    'typescript/class-name-casing': 'error'
+    'typescript/class-name-casing': 'error',
   }
 }
