@@ -10,7 +10,8 @@
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --mode development --color --config webpack.dev.js",
     "test": "react-scripts test --env=jsdom",
     "lint": "eslint src --ext .js,.ts,.tsx --fix",
-    "lint:create": "eslint --init"
+    "lint:create": "eslint --init",
+    "format-check": "prettier --write \"./src/**/*.{tsx,ts,js,json,md}\""
   },
   "repository": {
     "type": "git",
