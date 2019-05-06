@@ -6,6 +6,7 @@
   "scripts": {
     "prod": "cross-env NODE_ENV=production webpack --mode production --display-modules --display-chunks --color --config webpack.prod.js",
     "postprod": "node ./bin/index.js",
+    "predev": "npm run lint",
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --mode development --color --config webpack.dev.js",
     "test": "react-scripts test --env=jsdom",
