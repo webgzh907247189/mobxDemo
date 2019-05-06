@@ -12,7 +12,7 @@ export default class Header extends React.Component<ListStoreInterface> {
         headinput: HTMLInputElement;
     }
 
-    addtextKeyup = (event) => {
+    private addtextKeyup = (event) => {
     	let text = this.RefsValue()
     	let { addList } = this.props.listStore
     	if (event.keyCode === 13) {
