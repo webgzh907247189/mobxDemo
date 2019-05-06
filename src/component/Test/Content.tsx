@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { observer } from 'mobx-react'
-import * as styles from './index.css'
 import { TodoList, TodoListInterface } from './interface'
+import * as styles from './index.css'
 
 @observer
 export default class Content extends React.Component<TodoList> {
