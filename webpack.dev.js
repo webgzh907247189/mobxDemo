@@ -55,7 +55,8 @@ module.exports = smp.wrap({
         rules: [
             {   
                 test: /\.tsx?$/,
-                loader: 'ts-loader'
+                exclude: /node_modules/,
+                use: ['cache-loader','babel-loader','ts-loader'],  
             },
             {
                 test: /\.js?$/,
