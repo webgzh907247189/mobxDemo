@@ -6,6 +6,8 @@
 //     ]
 //   }
 
+// 如果想要跳过 Lint 程序，可以使用 git commit -no-verify 进行提交。
+
 module.exports = {
   parser:  '@typescript-eslint/parser',
   // parser: 'typescript-eslint-parser',
