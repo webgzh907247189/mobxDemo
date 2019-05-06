@@ -11,7 +11,7 @@ export default class Test extends React.Component<any, any> {
 
   render() {
     return (
-      <div>
+      <div className="content">
         <Header listStore={listStore} />
         <Content listStore={listStore} filterListStore={filterListStore} />
         <Footer filterListStore={filterListStore} />

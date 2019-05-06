@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as styles from './index.css'
 import { observer } from 'mobx-react'
+import { Link } from 'react-router-dom'
 import { FooterInterface } from './interface'
 
 @observer
@@ -32,6 +33,9 @@ export default class Footer extends React.Component<FooterInterface> {
         <span className={styles['item']} onClick={this.didedTodos}>
           死亡item
         </span>
+        <div>
+          77777<Link to={'/img'}>0000</Link>
+        </div>
       </div>
     )
   }

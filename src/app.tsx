@@ -7,13 +7,14 @@ import {
 } from 'react-router-dom'
 import Layout from './component/Layout/index.web'
 import Test from './component/Test/index.web'
+import ImgCom from './component/ImgCom/index.web'
 
 const Routers = () => (
   <Router>
     <Layout>
       <Switch>
         <Route exact path="/test" component={Test} />
-
+        <Route exact path="/img" component={ImgCom} />
         <Redirect to="/test" />
       </Switch>
     </Layout>
