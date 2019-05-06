@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as styles from './index.css'
 import { observer } from 'mobx-react'
-import { FooterInterface, ListStoreInterface } from './interface'
+import { FooterInterface } from './interface'
 
 @observer
 export default class Footer extends React.Component<FooterInterface> {
