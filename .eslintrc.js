@@ -1,6 +1,6 @@
 // "precommit": "lint-staged",
 // "pre-push": "npm run format-check",
-// "format-check": "prettier --list-different \"./**/*.{ts,js,json,md}\""
+
 // "lint-staged": {
 //     "src/**/*.{js,jsx}": [
 //         "prettier --tab-width 4 --write",
@@ -8,9 +8,9 @@
 //         "git add"
 //     ]
 //   }
-//eslint-config-react-app
+
 module.exports = {
-    parser:  '@typescript-eslint/parser',
+  parser:  '@typescript-eslint/parser',
   // parser: 'typescript-eslint-parser',
   // parser:  'babel-eslint',
   'env': {
