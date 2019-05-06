@@ -28,7 +28,7 @@ module.exports = {
     },
     devtool: 'nosources-source-map', 
     resolve:{
-        extensions: ['.js','.tsx','ts','.web.js','.jsx','.json', '.scss'],  //默认解析扩展路径
+        extensions: ['.js','.tsx','.ts','.web.js','.jsx','.json', '.scss'],  //默认解析扩展路径
         alias: {
             style: __dirname + '/src/style/',
             component: __dirname + '/src/component/'

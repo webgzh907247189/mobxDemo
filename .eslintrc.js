@@ -1,5 +1,17 @@
+// "precommit": "lint-staged",
+// "pre-push": "npm run format-check",
+// "format-check": "prettier --list-different \"./**/*.{ts,js,json,md}\""
+// "lint-staged": {
+//     "src/**/*.{js,jsx}": [
+//         "prettier --tab-width 4 --write",
+//         "eslint --fix",
+//         "git add"
+//     ]
+//   }
+//eslint-config-react-app
 module.exports = {
-  parser: 'typescript-eslint-parser',
+    parser:  '@typescript-eslint/parser',
+  // parser: 'typescript-eslint-parser',
   // parser:  'babel-eslint',
   'env': {
     'browser': true,
@@ -7,7 +19,8 @@ module.exports = {
   },
   'extends': [
     'standard', //使用standard做代码规范
-    "prettier"
+    'react-app',
+    "prettier",
   ],
   'globals': {
     'Atomics': 'readonly',
@@ -33,12 +46,8 @@ module.exports = {
   ],
   'rules': {
     "prettier/prettier": "error",
-
-    // 'indent': [ //缩进
-    //   'error',
-    //   "space"
-    // ],
     'no-tabs': 0,
+    "no-undef": 0,
     'no-mixed-spaces-and-tabs': 0,
     'indent': ["off", "tab"],
     'no-trailing-spaces': 0,
@@ -52,6 +61,7 @@ module.exports = {
       }
     ],
     // 类和接口的命名必须遵守帕斯卡命名法，比如 PersianCat
-    'typescript/class-name-casing': 'error'
+    'typescript/class-name-casing': 'error',
+    'public': true
   }
 }

@@ -23,12 +23,12 @@ class FilterListStore {
   }
 
   @computed get toDoList(): Array<object> {
-    if (this.isShow === ALL) {
-      return listStore.todos
-    } else if (this.isShow === ACTIVE) {
+    if (this.isShow === ACTIVE) {
       return listStore.todos.filter((todo: ListInterface) => todo.isActive)
     } else if (this.isShow === DIDED) {
       return listStore.todos.filter((todo: ListInterface) => !todo.isActive)
+    } else {
+      return listStore.todos
     }
   }
 }
