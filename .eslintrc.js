@@ -1,4 +1,3 @@
-// "precommit": "lint-staged",
 // "pre-push": "npm run format-check",
  
 // "lint-staged": {
