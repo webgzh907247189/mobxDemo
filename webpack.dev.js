@@ -46,7 +46,7 @@ module.exports = smp.wrap({
             component: __dirname + '/src/component/',
             util: __dirname + '/src/util/',
             'react-dom': '@hot-loader/react-dom',
-            mobx: resolve('node_modules/mobx/lib/mobx.es6.js')
+            mobx: path.resolve('node_modules/mobx/lib/mobx.es6.js')
         },
         mainFiles: ['index','index.web'], //解析目录时要使用的文件名
         modules: [path.resolve(__dirname, "src"), "node_modules"], //如果你想要添加一个目录到模块搜索目录，此目录优先于 node_modules/ 搜索
