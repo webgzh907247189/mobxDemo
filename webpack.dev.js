@@ -45,7 +45,8 @@ module.exports = smp.wrap({
             style: __dirname + '/src/style/',
             component: __dirname + '/src/component/',
             util: __dirname + '/src/util/',
-            'react-dom': '@hot-loader/react-dom'
+            'react-dom': '@hot-loader/react-dom',
+            mobx: resolve('node_modules/mobx/lib/mobx.es6.js')
         },
         mainFiles: ['index','index.web'], //解析目录时要使用的文件名
         modules: [path.resolve(__dirname, "src"), "node_modules"], //如果你想要添加一个目录到模块搜索目录，此目录优先于 node_modules/ 搜索
@@ -53,15 +54,6 @@ module.exports = smp.wrap({
     },
     module: {
         rules: [
-            // {
-            //     test: /\.(js|tsx|tsx)$/,
-            //     loader: 'eslint-loader',
-            //     exclude: /node_modules/,
-            //     // enforce: 'pre',
-            //     options: {
-            //         fix: true
-            //     }
-            // },
             {   
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
@@ -78,7 +70,10 @@ module.exports = smp.wrap({
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            publicPath: '../'
+                            publicPath: '../',
+                            hmr: true,
+                            // if hmr does not work, this is a forceful method.
+                            reloadAll: false,
                         }
                     },
                     // 'style-loader',  //  与MiniCssExtractPlugin.loader 冲突
@@ -107,7 +102,10 @@ module.exports = smp.wrap({
                 use: [{
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            publicPath: '../'
+                            publicPath: '../',
+                            hmr: true,
+                            // if hmr does not work, this is a forceful method.
+                            reloadAll: false,
                         }
                     },
                     // {

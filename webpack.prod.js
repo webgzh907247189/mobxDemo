@@ -17,7 +17,7 @@ const _mode = argv.mode || 'development'
 module.exports = {
     entry: {
         common: '@babel/polyfill',
-        index: './index.js',
+        index: './index.tsx',
         vendor: ['react','lodash']
     },
     output: {
@@ -31,7 +31,8 @@ module.exports = {
         extensions: ['.js','.tsx','.ts','.web.js','.jsx','.json', '.scss'],  //默认解析扩展路径
         alias: {
             style: __dirname + '/src/style/',
-            component: __dirname + '/src/component/'
+            component: __dirname + '/src/component/',
+            util: __dirname + '/src/util/'
         },
         mainFiles: ['index','index.web'], //解析目录时要使用的文件名
         modules: [path.resolve(__dirname, "src"), "node_modules"], //如果你想要添加一个目录到模块搜索目录，此目录优先于 node_modules/ 搜索
@@ -176,9 +177,8 @@ module.exports = {
 			filename: "style/[name].[hash:5].css",
 			chunkFilename: "style/[id].[hash:5].css"
         }),
-        new InlineManifestWebpackPlugin('runtime'),
+        new ManifestPlugin(),
 		new ProgressBarPlugin(),
-		new ManifestPlugin(),
         new webpack.DefinePlugin({   //可在production环境下帮助删除重复或相似文件，可以有效减少文件大小（用于打包文件优化，建议使用在生产环境）
             "process.env":{
                 NODE_ENV:JSON.stringify('production')
@@ -194,6 +194,7 @@ module.exports = {
                 removeComments:true, //移除HTML中的注释
                 collapseWhitespace: true  //压缩html模板(生产)
             }
-        })
+        }),
+        new InlineManifestWebpackPlugin('runtime')
     ]
 }

@@ -5,9 +5,10 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom'
-import Layout from './component/Layout/index.web'
-import Test from './component/Test/index.web'
-import ImgCom from './component/ImgCom/index.web'
+// import Layout from './component/Layout/index.web'
+import Layout from 'component/Layout/index.web'
+import Test from 'component/Test/index.web'
+import ImgCom from 'component/ImgCom/index.web'
 
 const Routers = () => (
   <Router>

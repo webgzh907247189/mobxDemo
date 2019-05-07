@@ -1,15 +1,17 @@
+import { hot } from 'react-hot-loader/root'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import *  as quicklink from "quicklink";
-import { hot } from 'react-hot-loader/root'
-import attachFastClick from 'fastclick'
+import * as quicklink from "quicklink";
+
+// import {hot} from "react-hot-loader"
+import * as FastClick from 'fastclick';
 import App from './src/app'
 
 import { Provider } from 'mobx-react'
 import {listStore,filterListStore} from './src/store/store'
 let store = Object.assign({},listStore,filterListStore)
 
-attachFastClick.attach(document.body)
+FastClick['attach'](document.body);
 
 // import ReactPerfTool from 'react-perf-tool'
 // import Perf from 'react-addons-perf'
