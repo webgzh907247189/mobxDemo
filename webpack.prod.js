@@ -215,8 +215,12 @@ module.exports = {
                     handler: 'staleWhileRevalidate',
                 },
                 {
-                    urlPattern: /.*\html/,
+                    urlPattern: /.*\.html/,
                     handler: 'networkFirst',
+                }, 
+                {
+                    urlPattern: /test/,
+                    handler: 'cacheFirst',
                 }, 
             ]
         })
