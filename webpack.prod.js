@@ -9,16 +9,16 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-
+const workboxPlugin = require('workbox-webpack-plugin');
 
 const argv = require('yargs-parser')(process.argv.slice(2))
 const _mode = argv.mode || 'development'
 
 module.exports = {
     entry: {
-        common: '@babel/polyfill',
+        // common: '@babel/polyfill',
         index: './index.tsx',
-        vendor: ['react','lodash']
+        vendor: ['react','lodash','./sw.js']
     },
     output: {
         path: path.resolve(__dirname,'./dist'),
@@ -115,7 +115,7 @@ module.exports = {
 					test: /[\\/]node_modules[\\/]/,
 					name: 'vendors',
 					minSize: 30000,
-					minChunks: 1,
+					minChunks: 3,
 					chunks: 'initial',
 					priority: 1 // 该配置项是设置处理的优先级，数值越大越优先处理
 				},
@@ -195,6 +195,30 @@ module.exports = {
                 collapseWhitespace: true  //压缩html模板(生产)
             }
         }),
-        new InlineManifestWebpackPlugin('runtime')
+        new InlineManifestWebpackPlugin('runtime'),
+        new workboxPlugin.GenerateSW({
+            cacheId: 'webpack-pwa-project', // 设置前缀
+            // importWorkboxFrom: 'local', // workbox-sw.js 部署本地服务器
+            skipWaiting: true, // 强制等待中的 Service Worker 被激活
+            clientsClaim: true, // Service Worker 被激活后使其立即获得页面控制权
+            swDest: 'service-wroker.js', // 输出 Service worker 文件
+            globPatterns: ['**/*.{html,js,css,png.jpg}'], // 匹配的文件
+            globIgnores: ['service-wroker.js'], // 忽略的文件
+            runtimeCaching: [
+                // 配置路由请求缓存
+                {
+                    urlPattern: /.*\.js/, // 匹配文件
+                    handler: 'staleWhileRevalidate' // 网络优先
+                },
+                {
+                    urlPattern: /\.(css|png|jpg|gif)/,
+                    handler: 'staleWhileRevalidate',
+                },
+                {
+                    urlPattern: /.*\html/,
+                    handler: 'networkFirst',
+                }, 
+            ]
+        })
     ]
 }
