@@ -1,10 +1,12 @@
 module.exports = {
 	plugins: [
 		require('precss'),
-		require('postcss-cssnext'),
-		require('autoprefixer')({browsers: ['last 10 versions','Firefox >= 20','>0%']}),
+		require('postcss-preset-env'),
+        require('autoprefixer')({browsers: ['last 10 versions','Firefox >= 20','>0%']}),
+        require('cssnano'),
     	require('postcss-pxtorem')({
     		rootValue: 75,propList: ['*','!font-size'],minPixelValue: 1 
-    	})
+        }),
+        
 	]
 }
