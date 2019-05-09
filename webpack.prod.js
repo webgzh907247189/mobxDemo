@@ -202,25 +202,25 @@ module.exports = {
             skipWaiting: true, // 强制等待中的 Service Worker 被激活
             clientsClaim: true, // Service Worker 被激活后使其立即获得页面控制权
             swDest: 'service-wroker.js', // 输出 Service worker 文件
-            globPatterns: ['**/*.{html,js,css,png.jpg}'], // 匹配的文件
-            globIgnores: ['service-wroker.js'], // 忽略的文件
+            // globPatterns: ['**/*.{html,js,css,png.jpg}'], // 匹配的文件 (In Workbox v3 and later, this is usually not needed)
+            // globIgnores: ['service-wroker.js'], // 忽略的文件 (In Workbox v3 and later, this is usually not needed)
             runtimeCaching: [
                 // 配置路由请求缓存
                 {
                     urlPattern: /.*\.js/, // 匹配文件
-                    handler: 'staleWhileRevalidate' // 网络优先
+                    handler: 'StaleWhileRevalidate' // 网络优先
                 },
                 {
                     urlPattern: /\.(css|png|jpg|gif)/,
-                    handler: 'staleWhileRevalidate',
+                    handler: 'StaleWhileRevalidate',
                 },
                 {
                     urlPattern: /.*\.html/,
-                    handler: 'networkFirst',
+                    handler: 'NetworkFirst',
                 }, 
                 {
                     urlPattern: /test/,
-                    handler: 'cacheFirst',
+                    handler: 'CacheFirst',
                 }, 
             ]
         })
