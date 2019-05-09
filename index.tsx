@@ -7,8 +7,7 @@ import * as FastClick from 'fastclick';
 import App from './src/app'
 
 import { Provider } from 'mobx-react'
-import {listStore,filterListStore} from './src/store/store'
-let store = Object.assign({},listStore,filterListStore)
+import store from './src/store/index'
 
 FastClick['attach'](document.body);
 
