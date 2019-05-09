@@ -1,9 +1,8 @@
-import { hot } from 'react-hot-loader/root'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import * as quicklink from "quicklink";
 
-// import {hot} from "react-hot-loader"
+import {hot} from "react-hot-loader"
 import * as FastClick from 'fastclick';
 import App from './src/app'
 
@@ -37,4 +36,4 @@ const render = (App) => {
     );
 }
 quicklink();
-render(hot(App))
+render(hot(module)(App))
