@@ -19,7 +19,9 @@ FastClick['attach'](document.body);
 // if(__DEV__){
 //  	window.Perf = Perf
 //  }
-
+// https://github.com/inversify/inversify-basic-example  react DI
+// https://github.com/jamiebuilds/react-loadable   切分chunk
+// https://github.com/stratiformltd/react-loadable-visibility 异步加载
 
 /**
  * 应用包裹在 <AppContainer>，当发生更新所有 <AppContainer> 的 children 会 reloaded。
