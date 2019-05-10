@@ -43,4 +43,21 @@ interface TodoListInterface {
   title: string
   id: number
 }
-export { FooterInterface, ListStoreInterface, TodoList, TodoListInterface }
+
+interface TodoItemInterFace {
+  item: {
+    isActive: boolean
+    title: string
+    id: number
+  }
+  actionFilter: {
+    itemFilterMobx: (itemId: number) => any
+  }
+}
+export {
+  FooterInterface,
+  ListStoreInterface,
+  TodoList,
+  TodoListInterface,
+  TodoItemInterFace
+}

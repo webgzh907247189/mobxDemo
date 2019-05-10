@@ -1,8 +1,12 @@
-import { observable, action, computed } from 'mobx'
+import { spy, observable, action, computed } from 'mobx'
 import { listStore } from './list'
 import { ALL, ACTIVE, DIDED } from '../util/config'
 import { ListInterface } from './interface'
 // useStrict(true);
+
+spy(e => {
+  // console.log(e, 'e')
+})
 
 class FilterListStore {
   @observable isShow: string = ALL

@@ -1,31 +1,27 @@
 import * as React from 'react'
 import { observer } from 'mobx-react'
 import { TodoList, TodoListInterface } from './interface'
+import TodoItem from './item'
 import * as styles from './index.css'
+import { trace } from 'mobx'
 
 @observer
 export default class Content extends React.Component<TodoList> {
-  componentWillReceiveProps(nextProps) {}
-
-  itemFilter(itemId) {
-    let { itemFilterMobx } = this.props.listStore
-    itemFilterMobx(itemId)
-  }
-
   public render() {
+    console.log(this.props, 'this.props.')
+    trace() // true
     let { toDoList = [] } = this.props.filterListStore
 
     return (
       <div className={styles['content']}>
         {toDoList.map((item: TodoListInterface, index) => {
+          console.log(item, 'item')
           return (
-            <div
-              className={item.isActive ? styles['green'] : styles['red']}
-              key={item.id}
-              onClick={this.itemFilter.bind(this, item.id)}
-            >
-              {item.title} <span>{item.isActive ? '活跃' : '死亡'}</span>
-            </div>
+            <TodoItem
+              item={item}
+              key={index}
+              actionFilter={this.props.listStore}
+            />
           )
         })}
       </div>

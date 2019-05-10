@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx'
+import { observable, action, computed, toJS } from 'mobx'
 // useStrict(true);
 
 import { ListInterface } from './interface'
@@ -14,6 +14,12 @@ function fetchDate(value: string, num: number, cb: Function) {
 }
 
 class ListStore {
+  // constructor() {
+  //   observe(this.todos, change => {
+  //     console.log(change, 'change')
+  //   })
+  // }
+
   @observable num: number = 1
 
   @observable todos: Array<object> = [
@@ -26,7 +32,14 @@ class ListStore {
       ...this.todos,
       { title: value, isActive: true, id: this.num++ }
     ]
+
+    this.save()
   }
+
+  save() {
+    console.log(toJS(this.todos), 'this.todos 的数组')
+  }
+
   @computed get addListLength(): number {
     return this.todos.length
   }
