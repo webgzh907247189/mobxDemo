@@ -6,7 +6,7 @@ let ToggleContext = React.createContext({
 })
 
 // 创建 provider
-export class ToogleProvider extends React.Component<any> {
+export class ToogleProvider extends React.Component<{}> {
   state = {
     name: 'ctx传值'
   }
@@ -21,4 +21,4 @@ export class ToogleProvider extends React.Component<any> {
 }
 
 // 创建 consumer
-export const Toggleconsumer = (ToggleContext as any).Consumer
+export const Toggleconsumer = ToggleContext.Consumer

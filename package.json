@@ -58,6 +58,7 @@
     "@babel/register": "^7.4.4",
     "@babel/runtime": "^7.4.4",
     "@hot-loader/react-dom": "^16.8.6",
+    "@types/fastclick": "^1.0.28",
     "@types/react": "^16.8.14",
     "@types/react-dom": "^16.8.4",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
@@ -132,7 +133,6 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "@types/fastclick": "^1.0.28",
     "@types/jquery": "^3.3.29",
     "fastclick": "^1.0.6",
     "jquery": "^3.4.1",
