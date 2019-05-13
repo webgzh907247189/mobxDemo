@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import * as quicklink from "quicklink";
+import quicklink from "quicklink";
 
 import {hot} from "react-hot-loader"
 import * as FastClick from 'fastclick';
