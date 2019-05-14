@@ -16,6 +16,7 @@ const _mode = argv.mode || 'development'
 
 module.exports = {
     entry: {
+        // https://blog.csdn.net/weixiaoderensheng/article/details/82993332
         // common: '@babel/polyfill',
         index: './index.tsx',
         vendor: ['react','lodash','./sw.js']
