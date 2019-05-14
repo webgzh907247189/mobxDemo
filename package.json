@@ -137,6 +137,7 @@
     "@babel/polyfill": "^7.0.0",
     "@types/jquery": "^3.3.29",
     "fastclick": "^1.0.6",
+    "inversify": "^5.0.1",
     "jquery": "^3.4.1",
     "lodash": "^4.17.4",
     "mobx": "^5.0.2",
@@ -151,6 +152,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "reflect-metadata": "^0.1.13"
   }
 }
