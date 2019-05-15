@@ -7,9 +7,9 @@ import { ToogleProvider } from './ToggleProvider'
 import { listStore, filterListStore } from '../../store/store'
 
 // React.Suspense
-// https://blog.csdn.net/roamingcode/article/details/85946380
+// https://blog.csdn.net/roamingcode/article/details/85946380  /* webpackPreload: true */
 const LoadableContent = Loadable({
-  loader: () => import(/* webpackPreload: true */ /** content */ './Content'),
+  loader: () => import(/* webpackChunkName: "content" */ './Content'),
   loading() {
     return <div>Loading...</div>
   }
