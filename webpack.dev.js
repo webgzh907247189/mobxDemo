@@ -57,7 +57,7 @@ module.exports = smp.wrap({
             {   
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
-                use: ['cache-loader','ts-loader']   //可优化，因为ts不走babel编译也可以 (抽离antd没用到的css)
+                use: ['cache-loader','babel-loader','ts-loader']   //可优化，因为ts不走babel编译也可以 (抽离antd没用到的css)
             },
             {
                 test: /\.js?$/,

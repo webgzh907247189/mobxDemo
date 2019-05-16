@@ -8,7 +8,11 @@ import { trace } from 'mobx'
 @observer
 export default class Content extends React.Component<TodoList> {
   public render() {
-    console.log(this.props, 'this.props.')
+    // let a = {name:{sex: '11'}}
+
+    // let val = a.name.sex ?? 'default']
+    // console.log(this.props, 'this.props.',a?.name?.sex,val)
+
     trace() // true
     let { toDoList = [] } = this.props.filterListStore
 

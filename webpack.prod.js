@@ -16,6 +16,7 @@ const _mode = argv.mode || 'development'
 
 module.exports = {
     entry: {
+        // https://blog.csdn.net/weixiaoderensheng/article/details/82993332
         // common: '@babel/polyfill',
         index: './index.tsx',
         vendor: ['react','lodash','./sw.js']
@@ -42,7 +43,8 @@ module.exports = {
         rules: [
             {   
                 test: /\.tsx?$/,
-                loader: 'ts-loader'
+                exclude: /node_modules/,
+                use: ['babel-loader','ts-loader']
             },
             {
                 test: /\.js?$/,

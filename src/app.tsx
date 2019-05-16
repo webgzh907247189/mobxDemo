@@ -8,7 +8,19 @@ import {
 // import Layout from './component/Layout/index.web'
 import Layout from 'component/Layout/index.web'
 import Test from 'component/Test/index.web'
-import ImgCom from 'component/ImgCom/index.web'
+// import ImgCom from 'component/ImgCom/index.web'
+
+import * as Loadable from 'react-loadable'
+
+const ImgCom = Loadable({
+  loader: () =>
+    import(
+      /* webpackPreload: true, webpackChunkName: "content" */ './component/ImgCom/index.web'
+    ),
+  loading() {
+    return <div>Loading...</div>
+  }
+})
 
 const Routers = () => (
   <Router>
