@@ -51,6 +51,7 @@ module.exports = {
     'no-mixed-spaces-and-tabs': 0,
     'indent': ["off", "tab"],
     'no-trailing-spaces': 0,
+    'no-irregular-whitespace': 0,
 
     // @fixable 必须使用 === 或 !==，禁止使用 == 或 !=，与 null 比较时除外
     'eqeqeq': [
