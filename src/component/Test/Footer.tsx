@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as styles from './index.css'
 import { observer } from 'mobx-react'
 import { Link } from 'react-router-dom'
-import { FooterInterface } from './interface'
+import { FooterInterface, StateInterface } from './interface'
 import { Toggleconsumer, ToggleContext } from './ToggleProvider'
 import { trace } from 'mobx'
 import {
@@ -12,8 +12,18 @@ import {
   ContextTwo
 } from '../Hooks/UseContext'
 
+import { EffectTest } from '../Hooks/UseEffect'
+
 @observer
-export default class Footer extends React.Component<FooterInterface> {
+export default class Footer extends React.Component<
+  FooterInterface,
+  StateInterface
+> {
+  constructor(props) {
+    super(props)
+    this.state = { val: '11' }
+  }
+
   allTodos = () => {
     let { allTodos } = this.props.filterListStore
     allTodos()
@@ -27,6 +37,11 @@ export default class Footer extends React.Component<FooterInterface> {
   didedTodos = () => {
     let { didedTodos } = this.props.filterListStore
     didedTodos()
+  }
+
+  btnClick = () => {
+    let valNew = this.state.val + 1
+    this.setState({ val: valNew })
   }
 
   public render() {
@@ -70,6 +85,8 @@ export default class Footer extends React.Component<FooterInterface> {
             )
           }}
         </ConsumerOne>
+        <button onClick={this.btnClick}>点击修改useEffect</button>
+        <EffectTest val={this.state.val} />
       </div>
     )
   }

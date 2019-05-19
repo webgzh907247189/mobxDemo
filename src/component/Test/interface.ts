@@ -54,10 +54,15 @@ interface TodoItemInterFace {
     itemFilterMobx: (itemId: number) => any
   }
 }
+
+interface StateInterface {
+  val: string
+}
 export {
   FooterInterface,
   ListStoreInterface,
   TodoList,
   TodoListInterface,
-  TodoItemInterFace
+  TodoItemInterFace,
+  StateInterface
 }
