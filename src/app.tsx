@@ -16,7 +16,7 @@ import * as Loadable from 'react-loadable'
 const ImgCom = Loadable({
   loader: () =>
     import(
-      /* webpackPreload: true, webpackChunkName: "content" */ './component/ImgCom/index.web'
+      /* webpackPreload: true, webpackChunkName: "  content" */ './component/ImgCom/index.web'
     ),
   loading() {
     return <div>Loading...</div>
