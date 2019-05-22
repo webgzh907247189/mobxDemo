@@ -3,6 +3,7 @@ import HooksState from './HooksState'
 import HooksUseState from './HooksUseState'
 import UseContext from './Context'
 import UseEffect from './UseEffect'
+import { ProviderOne, ProviderTwo } from './UseContext'
 
 class Hooks extends React.Component {
   render() {
@@ -11,7 +12,12 @@ class Hooks extends React.Component {
         <HooksState />
         <HooksUseState />
 
-        <UseContext />
+        <ProviderOne>
+          <ProviderTwo>
+            <UseContext />
+          </ProviderTwo>
+        </ProviderOne>
+
         <UseEffect />
       </React.Fragment>
     )
