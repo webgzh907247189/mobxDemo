@@ -9,11 +9,23 @@ let HooksUseState = () => {
   /* eslint-enable */
 
   console.log(on, 'on', setOn)
+
   return (
     <div className={styles['header']}>
       <p className={styles['title']}>使用 React.useState</p>
-      <Button onClick={() => setOn(true)} />
-      <Modal onSure={() => setOn(false)} visible={on} />
+      <Button
+        onClick={() => {
+          console.log('1111', on)
+          setOn(true)
+        }}
+      />
+      <Modal
+        onSure={() => {
+          console.log('2222', on)
+          setOn(false)
+        }}
+        visible={on}
+      />
     </div>
   )
 }

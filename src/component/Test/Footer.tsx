@@ -6,8 +6,6 @@ import { FooterInterface } from './interface'
 import { Toggleconsumer, ToggleContext } from './ToggleProvider'
 import { trace } from 'mobx'
 
-// import { EffectTest } from '../Hooks/UseEffect'
-
 @observer
 export default class Footer extends React.Component<FooterInterface, {}> {
   allTodos = () => {
