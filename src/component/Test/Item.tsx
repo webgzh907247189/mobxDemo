@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { observer } from 'mobx-react'
-// import { TodoItemInterFace } from './interface'
 import * as styles from './index.css'
 import { trace } from 'mobx'
 

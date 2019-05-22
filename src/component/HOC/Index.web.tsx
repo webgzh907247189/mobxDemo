@@ -22,4 +22,4 @@ class HOC extends React.Component {
   }
 }
 
-export { HOC }
+export default HOC

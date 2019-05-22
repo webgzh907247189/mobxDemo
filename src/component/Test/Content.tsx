@@ -8,18 +8,12 @@ import { trace } from 'mobx'
 @observer
 export default class Content extends React.Component<TodoList> {
   public render() {
-    // let a = {name:{sex: '11'}}
-
-    // let val = a.name.sex ?? 'default']
-    // console.log(this.props, 'this.props.',a?.name?.sex,val)
-
     trace() // true
     let { toDoList = [] } = this.props.filterListStore
 
     return (
       <div className={styles['content']}>
         {toDoList.map((item: TodoListInterface, index) => {
-          console.log(item, 'item')
           return (
             <TodoItem
               item={item}

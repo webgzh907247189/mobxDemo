@@ -8,7 +8,7 @@ let ToggleContext = React.createContext({
 // 创建 provider
 class ToogleProvider extends React.Component<{}> {
   state = {
-    name: 'ctx传值'
+    name: 'ctx传值...'
   }
 
   render() {

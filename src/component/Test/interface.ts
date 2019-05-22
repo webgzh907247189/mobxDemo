@@ -55,14 +55,10 @@ interface TodoItemInterFace {
   }
 }
 
-interface StateInterface {
-  val: string
-}
 export {
   FooterInterface,
   ListStoreInterface,
   TodoList,
   TodoListInterface,
-  TodoItemInterFace,
-  StateInterface
+  TodoItemInterFace
 }

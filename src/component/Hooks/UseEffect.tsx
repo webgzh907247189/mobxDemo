@@ -1,5 +1,5 @@
 import * as React from 'react'
-
+import { StateInterface } from './interface'
 /**
  * https://juejin.im/post/5c9d7485e51d451ba13d9a93
  *
@@ -19,32 +19,54 @@ import * as React from 'react'
  *
  * 如果给 useEffect 第二个参数传入一个空数组的话，useEffect 的回调函数只会在首次渲染之后执行一次
  */
-const EffectTest = function(value) {
-  const [text, setText] = React.useState('')
 
-  function onChange(e) {
-    setText(e.target.value)
+// const EffectTest = function(value) {
+//   const [text, setText] = React.useState('')
+
+//   function onChange(e) {
+//     setText(e.target.value)
+//   }
+
+//   console.log(value.val, 'ti')
+
+//   React.useEffect(() => {
+//     console.log('render了，我useEffect执行了')
+//     // render 一次，执行一次  ->  因为就一个参数
+
+//     const input = document.getElementById('input')
+//     input.addEventListener('change', onChange)
+
+//     return () => {
+//       input.removeEventListener('change', onChange)
+//     }
+//   }, [value.val])
+
+//   return (
+//     <React.Fragment>
+//       <input id="input" onInput={onChange} />
+//       <span>{text}</span>
+//     </React.Fragment>
+//   )
+// }
+
+class UseEffect extends React.Component<{}, StateInterface> {
+  constructor(props) {
+    super(props)
+    this.state = { val: '11' }
   }
 
-  console.log(value.val, 'ti')
+  btnClick = () => {
+    let valNew = this.state.val + 1
+    this.setState({ val: valNew })
+  }
 
-  React.useEffect(() => {
-    console.log('render了，我useEffect执行了')
-    // render 一次，执行一次  ->  因为就一个参数
-    const input = document.getElementById('input')
-    input.addEventListener('change', onChange)
-
-    return () => {
-      input.removeEventListener('change', onChange)
-    }
-  }, [value.val])
-
-  return (
-    <React.Fragment>
-      <input id="input" onInput={onChange} />
-      <span>{text}</span>
-    </React.Fragment>
-  )
+  render() {
+    return (
+      <div>
+        <button onClick={this.btnClick}>点击修改useEffect</button>
+        {/* <EffectTest val={this.state.val} /> */}
+      </div>
+    )
+  }
 }
-
-export { EffectTest }
+export default UseEffect

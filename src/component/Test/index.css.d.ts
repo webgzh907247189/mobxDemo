@@ -4,3 +4,4 @@ export const content: string
 export const green: string
 export const red: string
 export const headBtn: string
+export const header: string
