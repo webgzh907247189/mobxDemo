@@ -1,4 +1,4 @@
-const ImgContainer = props => {
+const ImgContainerRenderPops = props => {
   return props.children(props)
 }
-export default ImgContainer
+export default ImgContainerRenderPops

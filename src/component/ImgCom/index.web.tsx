@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ImgContainer from './ImgContainer'
+import ImgContainerRenderPops from './ImgContainer'
 
 // export default class ImgCom extends React.Component<any, any> {
 //   componentWillMount() {}
@@ -20,9 +20,9 @@ export default class ImgCom extends React.Component<any, any> {
   render() {
     return (
       <div className="">
-        <ImgContainer
+        <ImgContainerRenderPops
           src="https://bztic-casaba.oss-cn-shanghai.aliyuncs.com/sit/88000785/dfc5fe60-ae46-441f-8fcc-bdb991892bea.png"
-          alt="图片"
+          alt="图片 使用 render Props"
         >
           {props => {
             return (
@@ -31,7 +31,7 @@ export default class ImgCom extends React.Component<any, any> {
               </span>
             )
           }}
-        </ImgContainer>
+        </ImgContainerRenderPops>
       </div>
     )
   }
