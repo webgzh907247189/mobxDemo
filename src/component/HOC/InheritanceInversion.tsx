@@ -7,6 +7,7 @@
 import * as React from 'react'
 // import {InversionInterface} from './interface'
 import * as styles from './index.less'
+import { styleList } from './config'
 
 // 反向继承 -> 渲染劫持 -> 条件渲染
 function withLoading(WrappedComponent: any): any {
@@ -132,6 +133,14 @@ function withLogging(WrappedComponent: any): any {
 
 @withLogging
 class ChangeState extends React.Component {
+  static getName() {
+    console.log(
+      '%c%s',
+      styleList.join(';'),
+      '我是class里面的静态方法 -> 静态方法并未丢失，因为使用了装饰器'
+    )
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -142,5 +151,6 @@ class ChangeState extends React.Component {
     return <div>操作state</div>
   }
 }
+console.log(ChangeState.getName())
 
 export { RenderHighjacke, CloneComponent, ChangeState }

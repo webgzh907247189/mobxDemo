@@ -19,8 +19,12 @@ function HigherOrderComponent(WrappedComponent) {
   }
 }
 
-@HigherOrderComponent
+// @HigherOrderComponent
 class ProxyOne extends React.Component<any> {
+  static getName() {
+    console.log('我是class里面的静态方法', '静态方法丢失')
+  }
+
   render() {
     return (
       <div className={styles['header']}>
@@ -39,5 +43,9 @@ class ProxyOne extends React.Component<any> {
   }
 }
 
-// export default HigherOrderComponent(ProxyOne)
-export default ProxyOne // -> 装饰器写法
+let HigherOrderResult = HigherOrderComponent(ProxyOne)
+console.log((HigherOrderResult as any).getName) // 静态方法丢失
+
+export default HigherOrderResult
+
+// export default ProxyOne // -> 装饰器写法

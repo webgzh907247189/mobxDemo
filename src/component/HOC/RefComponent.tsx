@@ -15,6 +15,7 @@
 // 不能在无状态组件（函数类型组件）上使用 ref 属性，因为无状态组件没有实例
 
 import * as React from 'react'
+import { styleList } from './config'
 
 function HigherOrderComponent(WrappedComponent: React.ComponentClass): any {
   return class extends React.Component {
@@ -33,7 +34,6 @@ function HigherOrderComponent(WrappedComponent: React.ComponentClass): any {
 @HigherOrderComponent
 class GetComponetInstance extends React.Component<any, any> {
   someMethod = (): string => {
-    let styleList = ['color: red', 'font-size: 16px', 'background: #fff']
     console.log(
       '%c%s',
       styleList.join(';'),
