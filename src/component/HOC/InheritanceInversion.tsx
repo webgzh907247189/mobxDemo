@@ -69,6 +69,7 @@ function HigherOrderComponent(WrappedComponent: any): any {
         ...tree.props,
         ...newProps
       }
+      //   console.log(tree.props,'tree.props.children')
       const newTree = React.cloneElement(tree, props, tree.props.children)
       return newTree
     }
@@ -89,6 +90,10 @@ class CloneComponent extends React.Component<any, any> {
 
   render() {
     return <input onChange={this.onChange} value={this.state.val} />
+    // return <div>
+    //     <p>21313</p>
+    //     <p>123</p>
+    // </div>
   }
 }
 
@@ -98,6 +103,9 @@ class CloneComponent extends React.Component<any, any> {
 function withLogging(WrappedComponent: any): any {
   return class extends WrappedComponent {
     render() {
+      let reg = /.+?(省|市|自治区|自治州|县|区)/g
+      let list = '广东省广州市黄埔区'.match(reg)
+
       return (
         <div>
           <h2 className={styles['red']}>
@@ -106,6 +114,15 @@ function withLogging(WrappedComponent: any): any {
           </h2>
           <p>state: -> {JSON.stringify(this.state, null, 4)}</p>
           <p>props: -> {JSON.stringify(this.props, null, 4)}</p>
+          <p>
+            JSON.stringify ->{' '}
+            {JSON.stringify(
+              { name: '1', sex: '2', age: '3', address: '4', fix: '5' },
+              ['name', 'age'],
+              4
+            )}
+          </p>
+          <p>匹配 -> {list}</p>
           {super.render()}
         </div>
       )
