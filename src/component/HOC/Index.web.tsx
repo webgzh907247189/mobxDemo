@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ProxyOne from './PropsProxy'
 import PullAwayState from './PullAwayState'
-import GetComponetInstance from './RefComponent'
+import { GetComponetInstance, EnhancedComponent } from './RefComponent'
 import {
   RenderHighjacke,
   CloneComponent,
@@ -27,9 +27,13 @@ class HOC extends React.Component {
       <div>
         <ProxyOne {...proxyOneObj} />
         <PullAwayState {...pullAwayObj} />
+
         <GetComponetInstance {...redObj} />
+        <EnhancedComponent />
+
         <RenderHighjacke {...renderObj} />
         <CloneComponent />
+
         <ChangeState {...renderObj} />
       </div>
     )

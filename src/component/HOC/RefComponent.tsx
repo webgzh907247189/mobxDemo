@@ -48,4 +48,43 @@ class GetComponetInstance extends React.Component<any, any> {
   }
 }
 
-export default GetComponetInstance
+/**
+ * refs 属性不能透传
+ * 高阶组件可以传递所有的 props 给包裹的组件 WrappedComponent，但是有一种属性不能传递，它就是 ref。与其他属性不同的地方在于 React 对其进行了特殊的处理。
+ *
+ * 向一个由高阶组件创建的组件的元素添加 ref 引用，那么 ref 指向的是最外层容器组件实例的，而不是被包裹的 WrappedComponent 组件。
+ *
+ * 有一定要传递 ref 的需求呢，别急，React 为我们提供了一个名为 React.forwardRef 的 API 来解决这一问题（在 React 16.3 版本中被添加）
+ */
+// function withLogging(WrappedComponent: any): any {
+//   class Enhance extends WrappedComponent<any, any> {
+//     constructor(props) {
+//       super(props)
+//     }
+
+//     componentWillReceiveProps(nextProps) {
+//       console.log('Current props', this.props)
+//       console.log('Next props', nextProps)
+//     }
+
+//     render() {
+//       const { forwardedRef, ...rest } = this.props
+//       // 把 forwardedRef 赋值给 ref
+//       return <WrappedComponent {...rest} ref={forwardedRef} />
+//     }
+//   }
+
+// //   React.forwardRef 方法会传入 props 和 ref 两个参数给其回调函数
+// //   所以这边的 ref 是由 React.forwardRef 提供的
+// //   function forwardRef(props: any, ref: any): any {
+// //     return <Enhance {...props} forwardRef={ref} />
+// //   }
+
+//   return React.forwardRef((props: any, ref: any): any => {
+//     // return <Enhance {...props} forwardRef={ref} />
+//     // return <Enhance/>
+//   })
+// }
+// const EnhancedComponent = withLogging(GetComponetInstance)
+
+export { GetComponetInstance }
