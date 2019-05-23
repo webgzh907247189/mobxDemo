@@ -44,23 +44,50 @@ class RenderHighjacke extends React.Component<{}, {}> {
   }
 }
 
-// 修改由 render() 输出的 React 元素树
-// function HigherOrderComponent(WrappedComponent) {
-//   return class extends WrappedComponent {
-//     render() {
-//       const tree = super.render()
-//       const newProps = {}
-//       if (tree && tree.type === 'input') {
-//         newProps.value = 'something here'
-//       }
-//       const props = {
-//         ...tree.props,
-//         ...newProps
-//       }
-//       const newTree = React.cloneElement(tree, props, tree.props.children)
-//       return newTree
-//     }
-//   }
-// }
+/**
+ * 修改由 render() 输出的 React 元素树
+ */
 
-export { RenderHighjacke }
+interface PropsInter {
+  value?: string
+}
+
+// 修改由 render() 输出的 React 元素树
+function HigherOrderComponent(WrappedComponent: any): any {
+  return class extends WrappedComponent {
+    render() {
+      const tree = super.render()
+
+      const newProps: PropsInter = {}
+      if (tree && tree.type === 'input' && !tree.props.value) {
+        console.log(tree.props.value)
+        newProps.value = 'something here' + tree.props.value
+      }
+
+      const props = {
+        ...tree.props,
+        ...newProps
+      }
+      const newTree = React.cloneElement(tree, props, tree.props.children)
+      return newTree
+    }
+  }
+}
+
+@HigherOrderComponent
+class CloneComponent extends React.Component<any, any> {
+  constructor(props) {
+    super(props)
+    this.state = { val: '' }
+  }
+
+  onChange = e => {
+    let value = e.target.value
+    this.setState({ val: value })
+  }
+
+  render() {
+    return <input onChange={this.onChange} value={this.state.val} />
+  }
+}
+export { RenderHighjacke, CloneComponent }
