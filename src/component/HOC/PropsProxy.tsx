@@ -1,12 +1,14 @@
 /**
  * 属性代理
+ *
+ * 操作 props
  */
 import * as React from 'react'
 import ShowAttrs from './RenderPops'
 import * as styles from './index.less'
 
 function HigherOrderComponent(WrappedComponent) {
-  return class extends React.Component {
+  return class extends React.Component<{}, {}> {
     render() {
       const newProps = {
         name: '大板栗',

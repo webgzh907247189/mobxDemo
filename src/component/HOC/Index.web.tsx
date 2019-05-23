@@ -1,5 +1,8 @@
 import * as React from 'react'
 import ProxyOne from './PropsProxy'
+import PullAwayState from './PullAwayState'
+import GetComponetInstance from './RefComponent'
+import { RenderHighjacke } from './InheritanceInversion'
 
 /**
  * https://juejin.im/post/5c72b97de51d4545c66f75d5
@@ -13,10 +16,15 @@ import ProxyOne from './PropsProxy'
 class HOC extends React.Component {
   render() {
     let proxyOneObj = { nameDes: '添加新的属性', age: 20 }
-
+    let pullAwayObj = { nameDes: '添加新的属性' }
+    let redObj = { name: 'ref name' }
+    let renderObj = { isLoading: true }
     return (
       <div>
         <ProxyOne {...proxyOneObj} />
+        <PullAwayState {...pullAwayObj} />
+        <GetComponetInstance {...redObj} />
+        <RenderHighjacke {...renderObj} />
       </div>
     )
   }

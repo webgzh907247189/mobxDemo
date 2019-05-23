@@ -9,9 +9,9 @@ import Layout from 'component/Layout/Index.web'
 import Test from 'component/Test/Index.web'
 import Hooks from 'component/Hooks/Index.web'
 import HOC from 'component/HOC/Index.web'
+import '../test.js'
 
 import * as Loadable from 'react-loadable'
-import './test.js'
 
 // import ImgCom from 'component/ImgCom/index.web'
 const ImgCom = Loadable({
