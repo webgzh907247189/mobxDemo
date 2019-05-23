@@ -2,7 +2,11 @@ import * as React from 'react'
 import ProxyOne from './PropsProxy'
 import PullAwayState from './PullAwayState'
 import GetComponetInstance from './RefComponent'
-import { RenderHighjacke, CloneComponent } from './InheritanceInversion'
+import {
+  RenderHighjacke,
+  CloneComponent,
+  ChangeState
+} from './InheritanceInversion'
 
 /**
  * https://juejin.im/post/5c72b97de51d4545c66f75d5
@@ -26,6 +30,7 @@ class HOC extends React.Component {
         <GetComponetInstance {...redObj} />
         <RenderHighjacke {...renderObj} />
         <CloneComponent />
+        <ChangeState {...renderObj} />
       </div>
     )
   }

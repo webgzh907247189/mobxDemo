@@ -6,8 +6,9 @@
  */
 import * as React from 'react'
 // import {InversionInterface} from './interface'
+import * as styles from './index.less'
 
-// 条件渲染
+// 反向继承 -> 渲染劫持 -> 条件渲染
 function withLoading(WrappedComponent: any): any {
   return class extends WrappedComponent<any, any> {
     constructor(props) {
@@ -52,7 +53,7 @@ interface PropsInter {
   value?: string
 }
 
-// 修改由 render() 输出的 React 元素树
+// 反向继承 -> 渲染劫持 -> 修改由 render() 输出的 React 元素树
 function HigherOrderComponent(WrappedComponent: any): any {
   return class extends WrappedComponent {
     render() {
@@ -60,7 +61,7 @@ function HigherOrderComponent(WrappedComponent: any): any {
 
       const newProps: PropsInter = {}
       if (tree && tree.type === 'input' && !tree.props.value) {
-        console.log(tree.props.value)
+        // console.log(tree.props.value)
         newProps.value = 'something here' + tree.props.value
       }
 
@@ -90,4 +91,39 @@ class CloneComponent extends React.Component<any, any> {
     return <input onChange={this.onChange} value={this.state.val} />
   }
 }
-export { RenderHighjacke, CloneComponent }
+
+/**
+ * 反向继承 -> 操作state
+ */
+function withLogging(WrappedComponent: any): any {
+  return class extends WrappedComponent {
+    render() {
+      return (
+        <div>
+          <h2 className={styles['red']}>
+            Debugger Component Logging... -> state & props 来自于
+            WrappedComponent 组件
+          </h2>
+          <p>state: -> {JSON.stringify(this.state, null, 4)}</p>
+          <p>props: -> {JSON.stringify(this.props, null, 4)}</p>
+          {super.render()}
+        </div>
+      )
+    }
+  }
+}
+
+@withLogging
+class ChangeState extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: '反向继承'
+    }
+  }
+  render() {
+    return <div>操作state</div>
+  }
+}
+
+export { RenderHighjacke, CloneComponent, ChangeState }
