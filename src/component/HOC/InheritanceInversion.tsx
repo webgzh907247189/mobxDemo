@@ -3,9 +3,15 @@
  *
  * 反向继承其实就是 一个函数接受一个 WrappedComponent 组件作为参数传入，并返回一个继承了该传入 WrappedComponent 组件的类，
  * 且在该类的 render() 方法中返回 super.render() 方法。
+ *
+ *
+ * 反向继承 -> 渲染劫持  (必须要class组件)
+ * 反向继承不能保证完整的子组件树被解析
+ * 反向继承的渲染劫持可以控制 WrappedComponent 的渲染过程，也就是说这个过程中我们可以对 elements tree、state、props 或 render() 的结果做各种操作。
+ * 但是如果渲染 elements tree 中包含了 function 类型的组件的话，这时候就不能操作组件的子组件了。
  */
+
 import * as React from 'react'
-// import {InversionInterface} from './interface'
 import * as styles from './index.less'
 import { styleList } from './config'
 
