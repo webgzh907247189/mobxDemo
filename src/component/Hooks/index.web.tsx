@@ -3,20 +3,21 @@ import HooksState from './HooksState'
 import HooksUseState from './HooksUseState'
 import UseContext from './Context'
 import UseEffect from './UseEffect'
-import { ProviderOne, ProviderTwo } from './UseContext'
+import { ContextOne, ProviderTwo } from './UseContext'
 
 class Hooks extends React.Component {
   render() {
+    let obj = { name: '我是直接使用 ContextOne.Provider 传递的' }
     return (
       <React.Fragment>
         <HooksState />
         <HooksUseState />
 
-        <ProviderOne>
+        <ContextOne.Provider value={obj}>
           <ProviderTwo>
             <UseContext />
           </ProviderTwo>
-        </ProviderOne>
+        </ContextOne.Provider>
 
         <UseEffect />
       </React.Fragment>

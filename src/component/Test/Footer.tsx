@@ -3,6 +3,7 @@ import * as styles from './index.css'
 import { observer } from 'mobx-react'
 import { Link } from 'react-router-dom'
 import { FooterInterface } from './interface'
+import Des from './Des'
 import { Toggleconsumer, ToggleContext } from './ToggleProvider'
 import { trace } from 'mobx'
 
@@ -28,16 +29,19 @@ export default class Footer extends React.Component<FooterInterface, {}> {
     return (
       <div className={styles['footer']}>
         <div className={styles['header']}>
-          <Toggleconsumer>
-            {data => {
-              return (
-                <span>
-                  我是通过ctx (React.createContext) 传递来的 -> {data.name}
-                </span>
-              )
-            }}
-          </Toggleconsumer>
-          <UseContextComponent />
+          <div>
+            <Toggleconsumer>
+              {data => {
+                return (
+                  <span>
+                    我是通过ctx (React.createContext) 传递来的 -> {data.name}
+                  </span>
+                )
+              }}
+            </Toggleconsumer>
+            <Des />
+            <UseContextComponent />
+          </div>
         </div>
 
         <span className={styles['item']} onClick={this.allTodos}>

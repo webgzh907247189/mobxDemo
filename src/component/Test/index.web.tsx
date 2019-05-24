@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as Loadable from 'react-loadable'
 import Header from './Header'
 import Footercontainer from './FooterContainer'
-import { ToogleProvider } from './ToggleProvider'
+import { ToggleContext } from './ToggleProvider'
 import { listStore, filterListStore } from '../../store/store'
 
 // React.Suspense
@@ -17,6 +17,7 @@ const LoadableContent = Loadable({
 
 export default class Test extends React.Component<any, any> {
   render() {
+    let obj = { name: '我是createContext' }
     return (
       <div className="content">
         <Header listStore={listStore} />
@@ -24,9 +25,9 @@ export default class Test extends React.Component<any, any> {
           listStore={listStore}
           filterListStore={filterListStore}
         />
-        <ToogleProvider>
+        <ToggleContext.Provider value={obj}>
           <Footercontainer filterListStore={filterListStore} />
-        </ToogleProvider>
+        </ToggleContext.Provider>
       </div>
     )
   }

@@ -57,7 +57,7 @@ class GetComponetInstance extends React.Component<any, any> {
  * 有一定要传递 ref 的需求呢，别急，React 为我们提供了一个名为 React.forwardRef 的 API 来解决这一问题（在 React 16.3 版本中被添加）
  */
 // function withLogging(WrappedComponent: any): any {
-//   class Enhance extends WrappedComponent<any, any> {
+//   class Enhance extends WrappedComponent{
 //     constructor(props) {
 //       super(props)
 //     }
@@ -74,17 +74,35 @@ class GetComponetInstance extends React.Component<any, any> {
 //     }
 //   }
 
-// //   React.forwardRef 方法会传入 props 和 ref 两个参数给其回调函数
-// //   所以这边的 ref 是由 React.forwardRef 提供的
-// //   function forwardRef(props: any, ref: any): any {
-// //     return <Enhance {...props} forwardRef={ref} />
-// //   }
+//   //   React.forwardRef 方法会传入 props 和 ref 两个参数给其回调函数
+//   //   所以这边的 ref 是由 React.forwardRef 提供的
+//   //   function forwardRef(props: any, ref: any): any {
+//   //     return <Enhance {...props} forwardRef={ref} />
+//   //   }
 
-//   return React.forwardRef((props: any, ref: any): any => {
-//     // return <Enhance {...props} forwardRef={ref} />
-//     // return <Enhance/>
-//   })
+//   return React.forwardRef(
+//     (props: any, ref: any): any => {
+//       return <Enhance {...props} forwardRef={ref} />
+//     //   return <Enhance />
+//     }
+//   )
 // }
-// const EnhancedComponent = withLogging(GetComponetInstance)
+
+// class GetComponetInstance122 extends React.Component<any, any> {
+//     myRef: any;
+//     constructor(props){
+//         super(props)
+//         this.myRef = React.createRef();
+//     }
+
+//     componentDidMount(){
+//         console.log(this.myRef.current);
+//     }
+
+//     render() {
+//       return <div ref={this.myRef}>ref</div>
+//     }
+//   }
+// const EnhancedComponent = withLogging(GetComponetInstance122)
 
 export { GetComponetInstance }
