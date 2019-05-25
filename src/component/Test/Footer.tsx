@@ -3,7 +3,7 @@ import * as styles from './index.css'
 import { observer } from 'mobx-react'
 import { Link } from 'react-router-dom'
 import { FooterInterface } from './interface'
-import Des from './Des'
+import HocContext from './HocContext'
 import { Toggleconsumer, ToggleContext } from './ToggleProvider'
 import { trace } from 'mobx'
 
@@ -39,7 +39,7 @@ export default class Footer extends React.Component<FooterInterface, {}> {
                 )
               }}
             </Toggleconsumer>
-            <Des />
+            <HocContext />
             <UseContextComponent />
           </div>
         </div>
