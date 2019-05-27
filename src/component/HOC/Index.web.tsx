@@ -53,3 +53,11 @@ class HOC extends React.Component {
 }
 
 export default HOC
+
+/**
+ * https://juejin.im/post/5c35432de51d45517d2f8bd8
+ *
+ * https://juejin.im/post/5ce25a76e51d4510835e01f3
+ *
+ * https://github.com/sunyongjian/blog/issues/21
+ */
