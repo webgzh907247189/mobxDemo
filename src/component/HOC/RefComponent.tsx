@@ -57,7 +57,7 @@ class GetComponetInstance extends React.Component<any, any> {
  * 有一定要传递 ref 的需求呢，别急，React 为我们提供了一个名为 React.forwardRef 的 API 来解决这一问题（在 React 16.3 版本中被添加）
  */
 function withLogging(WrappedComponent: any): any {
-  class Enhance extends WrappedComponent<any, any> {
+  class Enhance extends React.Component<any, any> {
     constructor(props) {
       super(props)
     }
@@ -76,31 +76,21 @@ function withLogging(WrappedComponent: any): any {
 
   return React.forwardRef(
     (props: any, ref: any): any => {
-      console.log(props, Enhance)
-      // return <Enhance {...props} forwardRef={ref} />
-      // return <Enhance {...props} />
-      return <div>123213</div>
+      console.log(props, '222', ref)
+      return <Enhance {...props} forwardedRef={ref} />
     }
   )
 }
 
 class GetComponetInstanceTest extends React.Component<any, any> {
-  myRef: any
-  constructor(props) {
-    super(props)
-    this.myRef = React.createRef()
-    this.state = {}
-  }
-
-  componentDidMount() {
-    console.log(this.myRef.current)
-  }
-
   render() {
     console.log(this.props, '1111')
-    // let obj = {forwardedRef: '11',age: '222',sex: '33'}
-    // return (<div ref={this.myRef} {...obj}>ref</div>)
-    return <div>ref</div>
+    return (
+      <div>
+        React.forwardRef
+        <input />
+      </div>
+    )
   }
 }
 const EnhancedComponent = withLogging(GetComponetInstanceTest)
