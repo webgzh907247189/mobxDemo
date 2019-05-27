@@ -15,7 +15,7 @@ import * as React from 'react'
 import * as styles from './index.less'
 import { styleList } from './config'
 
-// 反向继承 -> 渲染劫持 -> 条件渲染
+// 反向继承 -> 渲染劫持 -> 条件渲染  (组件渲染性能追踪)
 function withLoading(WrappedComponent: any): any {
   return class extends WrappedComponent<any, any> {
     constructor(props) {
@@ -23,9 +23,25 @@ function withLoading(WrappedComponent: any): any {
       this.state = {
         isLoading: this.props.isLoading
       }
+      this.start = 0
+      this.end = 0
+    }
+
+    componentWillMount() {
+      super.componentWillMount && super.componentWillMount()
+      this.start = Date.now()
     }
 
     componentDidMount() {
+      super.componentDidMount && super.componentDidMount()
+      this.end = Date.now()
+      console.log(
+        '%c%s',
+        styleList.join(';'),
+        `${WrappedComponent.name} 组件渲染时间为 ${this.end -
+          this.start} ms  ->  组件渲染性能追踪`
+      )
+
       setTimeout(() => {
         this.setState({ isLoading: false })
       }, 5000)
