@@ -159,7 +159,7 @@ class ChangeState extends React.Component {
     console.log(
       '%c%s',
       styleList.join(';'),
-      '我是class里面的静态方法 -> 静态方法并未丢失，因为使用了装饰器'
+      '我是class里面的静态方法 -> 静态方法并未丢失，因为使用了 ->  反向继承 渲染劫持'
     )
   }
 
