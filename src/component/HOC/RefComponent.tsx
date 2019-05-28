@@ -58,10 +58,6 @@ class GetComponetInstance extends React.Component<any, any> {
  */
 function withLogging(WrappedComponent: any): any {
   class Enhance extends React.Component<any, any> {
-    constructor(props) {
-      super(props)
-    }
-
     componentWillReceiveProps(nextProps) {
       console.log('Current props', this.props)
       console.log('Next props', nextProps)

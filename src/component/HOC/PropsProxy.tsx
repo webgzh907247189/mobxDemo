@@ -7,11 +7,12 @@ import * as React from 'react'
 import ShowAttrs from './RenderPops'
 import * as styles from './index.less'
 
-function HigherOrderComponent(WrappedComponent) {
+function HigherOrderComponent(WrappedComponent, propName = 'name') {
+  // propName  ->  处理命名冲突
   return class extends React.Component<{}, {}> {
     render() {
       const newProps = {
-        name: '大板栗',
+        [propName]: '大板栗',
         age: 18
       }
       return <WrappedComponent {...newProps} {...this.props} />
