@@ -21,21 +21,21 @@ interface ListStoreInterface {
   }
 }
 
-interface TodoList {
-  filterListStore: {
-    isShow: string
-    toDoList: Array<object>
-    activedTodos: () => any
-    didedTodos: () => any
-    allTodos: () => any
-  }
-  listStore: {
-    num: number
-    todos: Array<object>
-    addList: (value: string) => any
-    addListAsync: (value: string) => any
-    itemFilterMobx: (itemId: number) => any
-  }
+interface TodoList extends FooterInterface, ListStoreInterface {
+  // filterListStore: {
+  //   isShow: string
+  //   toDoList: Array<object>
+  //   activedTodos: () => any
+  //   didedTodos: () => any
+  //   allTodos: () => any
+  // }
+  //   listStore: {
+  //     num: number
+  //     todos: Array<object>
+  //     addList: (value: string) => any
+  //     addListAsync: (value: string) => any
+  //     itemFilterMobx: (itemId: number) => any
+  //   }
 }
 
 interface TodoListInterface {
