@@ -10,6 +10,7 @@ const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const workboxPlugin = require('workbox-webpack-plugin');
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
 
 const argv = require('yargs-parser')(process.argv.slice(2))
 const _mode = argv.mode || 'development'
@@ -196,6 +197,10 @@ module.exports = {
                 removeComments:true, //移除HTML中的注释
                 collapseWhitespace: true  //压缩html模板(生产)
             }
+        }),
+        new PreloadWebpackPlugin({
+            rel: 'prefetch',
+            as: 'script'
         }),
         new InlineManifestWebpackPlugin('runtime'),
         new workboxPlugin.GenerateSW({
