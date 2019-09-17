@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const DashboardPlugin = require("webpack-dashboard/plugin");
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const openBrowserWebpackPlugin = require('open-browser-webpack-plugin')
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
 
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const smp = new SpeedMeasurePlugin();
@@ -190,6 +191,9 @@ module.exports = smp.wrap({
                 collapseInlineTagWhitespace: false,
                 collapseWhitespace: true  //压缩html模板(生产)
             }
+        }),
+        new PreloadWebpackPlugin({
+            rel: 'prefetch'
         }),
         new DashboardPlugin(),
         new WebpackBuildNotifierPlugin({
