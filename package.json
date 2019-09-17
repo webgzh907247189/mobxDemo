@@ -13,7 +13,6 @@
     "lint:create": "eslint --init",
     "format-check": "prettier --write \"./src/**/*.{tsx,ts,js,json,md}\"",
     "precommit": "lint-staged",
-    "prepush": "npm run format-check",
     "nodemon": "nodemon ./service.js",
     "preprod": "rimraf ./dist/"
   },
